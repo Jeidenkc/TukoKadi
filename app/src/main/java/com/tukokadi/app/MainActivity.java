@@ -357,7 +357,7 @@ public class MainActivity extends Activity {
         List<Card> sortedHand = new ArrayList<>(you.hand);
         sortedHand.sort(Comparator
                 .comparing((Card c) -> c.suit.ordinal())
-                .thenComparing(c -> c.rank.value()));
+                .thenComparing(c -> c.rank.ordinal()));
 
         for (Card card : sortedHand) {
             Button cardButton = new Button(this);
@@ -450,7 +450,7 @@ public class MainActivity extends Activity {
             case KING: return "K";
             case QUEEN: return "Q";
             case JACK: return "J";
-            default: return String.valueOf(r.value());
+            default: return String.valueOf(r.ordinal());
         }
     }
 

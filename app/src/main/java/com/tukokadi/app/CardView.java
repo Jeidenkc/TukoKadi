@@ -81,22 +81,15 @@ public class CardView extends View {
 
     public void setCard(String rankText, String suitSymbol, boolean red) {
         int derivedPips;
-
         try {
             derivedPips = Integer.parseInt(rankText);
         } catch (NumberFormatException e) {
             derivedPips = 0;
         }
-
         setCard(rankText, suitSymbol, red, derivedPips);
     }
 
-    public void setCard(
-            String rankText,
-            String suitSymbol,
-            boolean red,
-            int pipCount
-    ) {
+    public void setCard(String rankText, String suitSymbol, boolean red, int pipCount) {
         this.rankText = rankText;
         this.suitSymbol = suitSymbol;
         this.red = red;
@@ -121,293 +114,87 @@ public class CardView extends View {
     }
 
     private static float[][] pipPositions(int n) {
-
         switch (n) {
-
-            case 2:
-                return new float[][]{
-                        {0.5f, 0.22f},
-                        {0.5f, 0.78f}
-                };
-
-            case 3:
-                return new float[][]{
-                        {0.5f, 0.20f},
-                        {0.5f, 0.50f},
-                        {0.5f, 0.80f}
-                };
-
-            case 4:
-                return new float[][]{
-                        {0.28f, 0.22f},
-                        {0.72f, 0.22f},
-                        {0.28f, 0.78f},
-                        {0.72f, 0.78f}
-                };
-
-            case 5:
-                return new float[][]{
-                        {0.28f, 0.22f},
-                        {0.72f, 0.22f},
-                        {0.50f, 0.50f},
-                        {0.28f, 0.78f},
-                        {0.72f, 0.78f}
-                };
-
-            case 6:
-                return new float[][]{
-                        {0.28f, 0.18f},
-                        {0.72f, 0.18f},
-                        {0.28f, 0.50f},
-                        {0.72f, 0.50f},
-                        {0.28f, 0.82f},
-                        {0.72f, 0.82f}
-                };
-
-            case 7:
-                return new float[][]{
-                        {0.28f, 0.15f},
-                        {0.72f, 0.15f},
-                        {0.50f, 0.31f},
-                        {0.28f, 0.50f},
-                        {0.72f, 0.50f},
-                        {0.28f, 0.85f},
-                        {0.72f, 0.85f}
-                };
-
-            case 8:
-                return new float[][]{
-                        {0.28f, 0.12f},
-                        {0.72f, 0.12f},
-                        {0.50f, 0.28f},
-                        {0.28f, 0.45f},
-                        {0.72f, 0.45f},
-                        {0.50f, 0.62f},
-                        {0.28f, 0.84f},
-                        {0.72f, 0.84f}
-                };
-
-            case 9:
-                return new float[][]{
-                        {0.28f, 0.10f},
-                        {0.72f, 0.10f},
-                        {0.28f, 0.30f},
-                        {0.72f, 0.30f},
-                        {0.50f, 0.50f},
-                        {0.28f, 0.70f},
-                        {0.72f, 0.70f},
-                        {0.28f, 0.90f},
-                        {0.72f, 0.90f}
-                };
-
-            case 10:
-                return new float[][]{
-                        {0.28f, 0.08f},
-                        {0.72f, 0.08f},
-                        {0.50f, 0.20f},
-                        {0.28f, 0.34f},
-                        {0.72f, 0.34f},
-                        {0.28f, 0.50f},
-                        {0.72f, 0.50f},
-                        {0.50f, 0.66f},
-                        {0.28f, 0.82f},
-                        {0.72f, 0.82f}
-                };
-
-            default:
-                return new float[][]{};
+            case 2: return new float[][]{{0.5f,0.22f},{0.5f,0.78f}};
+            case 3: return new float[][]{{0.5f,0.22f},{0.5f,0.5f},{0.5f,0.78f}};
+            case 4: return new float[][]{{0.28f,0.22f},{0.72f,0.22f},{0.28f,0.78f},{0.72f,0.78f}};
+            case 5: return new float[][]{{0.28f,0.22f},{0.72f,0.22f},{0.5f,0.5f},{0.28f,0.78f},{0.72f,0.78f}};
+            case 6: return new float[][]{{0.28f,0.2f},{0.72f,0.2f},{0.28f,0.5f},{0.72f,0.5f},{0.28f,0.8f},{0.72f,0.8f}};
+            case 7: return new float[][]{{0.28f,0.16f},{0.72f,0.16f},{0.5f,0.32f},{0.28f,0.5f},{0.72f,0.5f},{0.28f,0.82f},{0.72f,0.82f}};
+            case 8: return new float[][]{{0.28f,0.14f},{0.72f,0.14f},{0.5f,0.3f},{0.28f,0.46f},{0.72f,0.46f},{0.5f,0.62f},{0.28f,0.84f},{0.72f,0.84f}};
+            case 9: return new float[][]{{0.28f,0.12f},{0.72f,0.12f},{0.28f,0.32f},{0.72f,0.32f},{0.5f,0.5f},{0.28f,0.68f},{0.72f,0.68f},{0.28f,0.88f},{0.72f,0.88f}};
+            case 10: return new float[][]{{0.28f,0.1f},{0.72f,0.1f},{0.5f,0.24f},{0.28f,0.38f},{0.72f,0.38f},{0.28f,0.62f},{0.72f,0.62f},{0.5f,0.76f},{0.28f,0.9f},{0.72f,0.9f}};
+            default: return new float[][]{};
         }
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
-
         int w = getWidth();
         int h = getHeight();
-
-        RectF rect = new RectF(
-                4,
-                4,
-                w - 4,
-                h - 4
-        );
+        RectF rect = new RectF(4, 4, w - 4, h - 4);
 
         if (faceDown) {
-
             Path clipPath = new Path();
-
-            clipPath.addRoundRect(
-                    rect,
-                    16,
-                    16,
-                    Path.Direction.CW
-            );
-
+            clipPath.addRoundRect(rect, 16, 16, Path.Direction.CW);
             canvas.save();
             canvas.clipPath(clipPath);
-
-            canvas.drawRect(
-                    rect,
-                    backFillPaint
-            );
+            canvas.drawRect(rect, backFillPaint);
 
             float spacing = 18;
-
             for (float d = 0; d < w + h; d += spacing) {
-
-                canvas.drawLine(
-                        d,
-                        0,
-                        d - h,
-                        h,
-                        backLinePaint
-                );
-
-                canvas.drawLine(
-                        d,
-                        h,
-                        d - h,
-                        0,
-                        backLinePaint
-                );
+                canvas.drawLine(d, 0, d - h, h, backLinePaint);
+                canvas.drawLine(d, h, d - h, 0, backLinePaint);
             }
-
             canvas.restore();
 
-            RectF innerRect = new RectF(
-                    rect.left + 10,
-                    rect.top + 10,
-                    rect.right - 10,
-                    rect.bottom - 10
-            );
-
-            canvas.drawRoundRect(
-                    innerRect,
-                    10,
-                    10,
-                    backInnerPaint
-            );
-
-            canvas.drawRoundRect(
-                    rect,
-                    16,
-                    16,
-                    backBorderPaint
-            );
-
+            RectF innerRect = new RectF(rect.left + 10, rect.top + 10, rect.right - 10, rect.bottom - 10);
+            canvas.drawRoundRect(innerRect, 10, 10, backInnerPaint);
+            canvas.drawRoundRect(rect, 16, 16, backBorderPaint);
             return;
         }
 
-        canvas.drawRoundRect(
-                rect,
-                16,
-                16,
-                bgPaint
-        );
+        canvas.drawRoundRect(rect, 16, 16, bgPaint);
+        canvas.drawRoundRect(rect, 16, 16, borderPaint);
 
-        canvas.drawRoundRect(
-                rect,
-                16,
-                16,
-                borderPaint
-        );
-
-        int color = red
-                ? Color.RED
-                : Color.BLACK;
-
+        int color = red ? Color.RED : Color.BLACK;
         cornerPaint.setColor(color);
         centerPaint.setColor(color);
         pipPaint.setColor(color);
 
-        /*
-         * Large card content.
-         * The suit pips occupy most of the card height.
-         */
+        // --- Enlarged sizing: scaled to this card's own height so pips/symbols
+        // fill roughly two-thirds of the card instead of a small fixed size. ---
         float cornerSize = h * 0.085f;
         float centerSize = h * 0.62f;
         float pipSize = h * 0.20f;
-
         cornerPaint.setTextSize(cornerSize);
         centerPaint.setTextSize(centerSize);
         pipPaint.setTextSize(pipSize);
 
         if (faceBitmap != null) {
-
-            RectF imgRect = new RectF(
-                    rect.left + 8,
-                    rect.top + 8,
-                    rect.right - 8,
-                    rect.bottom - 8
-            );
-
-            canvas.drawBitmap(
-                    faceBitmap,
-                    null,
-                    imgRect,
-                    null
-            );
-
+            RectF imgRect = new RectF(rect.left + 8, rect.top + 8, rect.right - 8, rect.bottom - 8);
+            canvas.drawBitmap(faceBitmap, null, imgRect, null);
             return;
         }
 
         String corner = rankText + suitSymbol;
-
-        canvas.drawText(
-                corner,
-                14,
-                cornerSize + 4,
-                cornerPaint
-        );
-
-        float bottomX =
-                w - 14 - cornerPaint.measureText(corner);
+        canvas.drawText(corner, 14, cornerSize + 4, cornerPaint);
 
         canvas.save();
-
-        canvas.rotate(
-                180,
-                w - 14 - cornerPaint.measureText(corner) / 2f,
-                h - cornerSize - 4 + 6
-        );
-
-        canvas.drawText(
-                corner,
-                bottomX,
-                h - cornerSize + 10,
-                cornerPaint
-        );
-
+        canvas.rotate(180, w - 14 - cornerPaint.measureText(corner) / 2f, h - cornerSize - 4 + 6);
+        canvas.drawText(corner, w - 14 - cornerPaint.measureText(corner), h - cornerSize + 10, cornerPaint);
         canvas.restore();
 
         if (pipCount >= 2) {
-
-            float[][] positions =
-                    pipPositions(pipCount);
-
+            float[][] positions = pipPositions(pipCount);
             for (float[] pos : positions) {
-
                 float px = pos[0] * w;
-                float py = pos[1] * h;
-
-                canvas.drawText(
-                        suitSymbol,
-                        px,
-                        py,
-                        pipPaint
-                );
+                float py = pos[1] * h + pipSize * 0.3f;
+                canvas.drawText(suitSymbol, px, py, pipPaint);
             }
-
         } else {
-
-            canvas.drawText(
-                    suitSymbol,
-                    w / 2f,
-                    h / 2f + centerSize * 0.3f,
-                    centerPaint
-            );
+            canvas.drawText(suitSymbol, w / 2f, h / 2f + centerSize * 0.3f, centerPaint);
         }
     }
 }
