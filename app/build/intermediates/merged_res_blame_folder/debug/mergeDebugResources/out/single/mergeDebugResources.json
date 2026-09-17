@@ -1,0 +1,110 @@
+[
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_j_spades.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/j_spades.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/raw_wrong.mp3.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/raw/wrong.mp3"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-hdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_k_clubs.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/k_clubs.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-xxxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/drawable_tuko_kadi_logo.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/drawable/tuko_kadi_logo.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-xhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_q_hearts.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/q_hearts.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-xxxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_k_spades.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/k_spades.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_j_diamonds.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/j_diamonds.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_j_hearts.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/j_hearts.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_q_spades.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/q_spades.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-xhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-mdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/raw_timer.mp3.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/raw/timer.mp3"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_k_diamonds.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/k_diamonds.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-mdpi/ic_launcher.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_j_clubs.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/j_clubs.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-hdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_q_diamonds.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/q_diamonds.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_q_clubs.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/q_clubs.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/raw_win.mp3.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/raw/win.mp3"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/mipmap-xxhdpi/ic_launcher_round.png"
+    },
+    {
+        "merged": "com.tukokadi.app-debug-4:/drawable_k_hearts.png.flat",
+        "source": "com.tukokadi.app-main-6:/drawable/k_hearts.png"
+    },
+    {
+        "merged": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-debug-4:/raw_playing.mp3.flat",
+        "source": "/data/data/com.termux/files/home/.gradle/daemon/9.6.0/com.tukokadi.app-main-6:/raw/playing.mp3"
+    }
+]

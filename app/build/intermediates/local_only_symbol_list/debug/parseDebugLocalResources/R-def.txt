@@ -1,0 +1,21 @@
+R_DEF: Internal format may change without notice
+local
+drawable j_clubs
+drawable j_diamonds
+drawable j_hearts
+drawable j_spades
+drawable k_clubs
+drawable k_diamonds
+drawable k_hearts
+drawable k_spades
+drawable q_clubs
+drawable q_diamonds
+drawable q_hearts
+drawable q_spades
+drawable tuko_kadi_logo
+mipmap ic_launcher
+mipmap ic_launcher_round
+raw playing
+raw timer
+raw win
+raw wrong
