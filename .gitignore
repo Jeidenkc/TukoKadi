@@ -6,3 +6,6 @@
 *.bak4
 *.bak5
 build.log
+build/
+.gradle/
+*.apk
