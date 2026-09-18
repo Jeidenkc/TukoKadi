@@ -504,11 +504,7 @@ public class MainActivity extends Activity {
         List<Card> sortedHand = new ArrayList<>(you.hand);
         sortedHand.sort(Comparator
                 .comparing((Card c) -> c.suit.ordinal())
-<<<<<<< HEAD
                 .thenComparing(c -> c.rank.value));
-=======
-                .thenComparing(c -> c.rank.ordinal()));
->>>>>>> eb91623d56fc30f1e43fc9e0c94b1e587a9d419e
 
         for (int i = 0; i < sortedHand.size(); i++) {
             Card card = sortedHand.get(i);
@@ -677,11 +673,7 @@ public class MainActivity extends Activity {
             case KING: return "K";
             case QUEEN: return "Q";
             case JACK: return "J";
-<<<<<<< HEAD
             default: return String.valueOf(r.value);
-=======
-            default: return String.valueOf(r.ordinal());
->>>>>>> eb91623d56fc30f1e43fc9e0c94b1e587a9d419e
         }
     }
 
