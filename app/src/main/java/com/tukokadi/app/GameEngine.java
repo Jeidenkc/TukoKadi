@@ -36,7 +36,7 @@ public class GameEngine {
         for (Player p : players) {
             p.hand.clear();
 
-            for (int i = 0; i < 7; i++) {
+            for (int i = 0; i < 4; i++) {
                 Card card = deck.draw();
 
                 if (card != null) {
@@ -102,7 +102,7 @@ public class GameEngine {
 
         if (pendingPenalty > 0) {
             return card.rank == pendingPenaltyRank ||
-                   card.rank == Card.Rank.ACE;
+                    card.rank == Card.Rank.ACE;
         }
 
         if (card.rank == Card.Rank.ACE) {
@@ -111,7 +111,7 @@ public class GameEngine {
 
         if (declaredSuit != null) {
             return card.suit == declaredSuit ||
-                   card.rank == topCard().rank;
+                    card.rank == topCard().rank;
         }
 
         return card.matches(topCard());
@@ -147,7 +147,7 @@ public class GameEngine {
                 .append(card)
                 .append("\n");
 
-        checkWin(p);
+        checkWin(p, card.rank);
 
         if (gameOver) {
             return true;
@@ -262,8 +262,8 @@ public class GameEngine {
         Card.Rank rank = cards.get(0).rank;
 
         if (rank == Card.Rank.ACE ||
-            rank == Card.Rank.JACK ||
-            rank == Card.Rank.KING) {
+                rank == Card.Rank.JACK ||
+                rank == Card.Rank.KING) {
 
             return false;
         }
@@ -330,7 +330,6 @@ public class GameEngine {
         }
 
         for (Card card : cards) {
-
             p.removeCard(card);
             discardPile.add(card);
 
@@ -358,7 +357,7 @@ public class GameEngine {
         }
 
         if (rank == Card.Rank.EIGHT ||
-            rank == Card.Rank.QUEEN) {
+                rank == Card.Rank.QUEEN) {
 
             log.append(p.name)
                     .append(" gets an extra turn.\n");
@@ -380,7 +379,7 @@ public class GameEngine {
         if (simPending > 0) {
 
             return card.rank == simPendingRank ||
-                   card.rank == Card.Rank.ACE;
+                    card.rank == Card.Rank.ACE;
         }
 
         if (card.rank == Card.Rank.ACE) {
@@ -389,35 +388,37 @@ public class GameEngine {
 
         if (simDeclaredSuit != null) {
             return card.suit == simDeclaredSuit ||
-                   card.rank == top.rank;
+                    card.rank == top.rank;
         }
 
         return card.matches(top);
+    }
+
+    private boolean isWinningRank(Card.Rank r) {
+        return r == Card.Rank.FOUR || r == Card.Rank.FIVE || r == Card.Rank.SIX
+                || r == Card.Rank.SEVEN || r == Card.Rank.NINE || r == Card.Rank.TEN;
     }
 
     private void checkWin(Player p, Card.Rank lastPlayedRank) {
 
         if (p.hand.isEmpty()) {
 
-            log.append(p.name)
-                    .append(" WINS!\n");
+            if (isWinningRank(lastPlayedRank)) {
 
-            gameOver = true;
-            winnerName = p.name;
-        winner = winnerName;
-        }
-    }
+                log.append(p.name)
+                        .append(" WINS!\n");
 
-    private void checkWin(Player p) {
+                gameOver = true;
+                winnerName = p.name;
+                winner = winnerName;
 
-        if (p.hand.isEmpty()) {
+            } else {
 
-            log.append(p.name)
-                    .append(" WINS!\n");
-
-            gameOver = true;
-            winnerName = p.name;
-        winner = winnerName;
+                log.append(p.name)
+                        .append(" emptied their hand on a ")
+                        .append(lastPlayedRank)
+                        .append(" - not a finishing card. They stay cardless until their turn comes back around.\n");
+            }
         }
     }
 
@@ -434,10 +435,31 @@ public class GameEngine {
     }
 
     public Card drawCard() {
-
         if (gameOver) return null;
 
         Player p = currentPlayer();
+
+        if (pendingPenalty > 0) {
+            int amount = pendingPenalty;
+            Card lastCard = null;
+            int actuallyDrawn = 0;
+            for (int i = 0; i < amount; i++) {
+                Card c = drawOneCard();
+                if (c == null) break;
+                p.hand.add(c);
+                lastCard = c;
+                actuallyDrawn++;
+            }
+            lastDrawnCard = lastCard;
+            log.append(p.name)
+                    .append(" draws ")
+                    .append(actuallyDrawn)
+                    .append(" cards as a penalty.\n");
+            pendingPenalty = 0;
+            pendingPenaltyRank = null;
+            advanceTurn();
+            return lastDrawnCard;
+        }
 
         Card card = drawOneCard();
 
@@ -454,6 +476,8 @@ public class GameEngine {
                 .append(" drew ")
                 .append(card)
                 .append(".\n");
+
+        advanceTurn();
 
         return card;
     }
@@ -543,7 +567,7 @@ public class GameEngine {
                         .append(escapeJack)
                         .append("\n");
 
-                checkWin(candidate);
+                checkWin(candidate, Card.Rank.JACK);
 
                 if (gameOver) return;
 

@@ -23,7 +23,7 @@ public class Card {
         KING(13),
         ACE(14);
 
-        private final int value;
+        public final int value;
 
         Rank(int value) {
             this.value = value;

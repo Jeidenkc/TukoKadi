@@ -1,0 +1,8 @@
+/app/build/
+/.gradle/
+*.bak
+*.bak2
+*.bak3
+*.bak4
+*.bak5
+build.log
