@@ -115,6 +115,7 @@ public class CardView extends View {
 
     private static float[][] pipPositions(int n) {
         switch (n) {
+<<<<<<< HEAD
             case 2: return new float[][]{{0.5f,0.20f},{0.5f,0.80f}};
             case 3: return new float[][]{{0.5f,0.18f},{0.5f,0.5f},{0.5f,0.82f}};
             case 4: return new float[][]{{0.26f,0.20f},{0.74f,0.20f},{0.26f,0.80f},{0.74f,0.80f}};
@@ -124,6 +125,17 @@ public class CardView extends View {
             case 8: return new float[][]{{0.26f,0.10f},{0.74f,0.10f},{0.5f,0.27f},{0.26f,0.44f},{0.74f,0.44f},{0.5f,0.61f},{0.26f,0.90f},{0.74f,0.90f}};
             case 9: return new float[][]{{0.26f,0.09f},{0.74f,0.09f},{0.26f,0.30f},{0.74f,0.30f},{0.5f,0.5f},{0.26f,0.70f},{0.74f,0.70f},{0.26f,0.91f},{0.74f,0.91f}};
             case 10: return new float[][]{{0.26f,0.07f},{0.74f,0.07f},{0.5f,0.21f},{0.26f,0.35f},{0.74f,0.35f},{0.26f,0.65f},{0.74f,0.65f},{0.5f,0.79f},{0.26f,0.93f},{0.74f,0.93f}};
+=======
+            case 2: return new float[][]{{0.5f,0.22f},{0.5f,0.78f}};
+            case 3: return new float[][]{{0.5f,0.22f},{0.5f,0.5f},{0.5f,0.78f}};
+            case 4: return new float[][]{{0.28f,0.22f},{0.72f,0.22f},{0.28f,0.78f},{0.72f,0.78f}};
+            case 5: return new float[][]{{0.28f,0.22f},{0.72f,0.22f},{0.5f,0.5f},{0.28f,0.78f},{0.72f,0.78f}};
+            case 6: return new float[][]{{0.28f,0.2f},{0.72f,0.2f},{0.28f,0.5f},{0.72f,0.5f},{0.28f,0.8f},{0.72f,0.8f}};
+            case 7: return new float[][]{{0.28f,0.16f},{0.72f,0.16f},{0.5f,0.32f},{0.28f,0.5f},{0.72f,0.5f},{0.28f,0.82f},{0.72f,0.82f}};
+            case 8: return new float[][]{{0.28f,0.14f},{0.72f,0.14f},{0.5f,0.3f},{0.28f,0.46f},{0.72f,0.46f},{0.5f,0.62f},{0.28f,0.84f},{0.72f,0.84f}};
+            case 9: return new float[][]{{0.28f,0.12f},{0.72f,0.12f},{0.28f,0.32f},{0.72f,0.32f},{0.5f,0.5f},{0.28f,0.68f},{0.72f,0.68f},{0.28f,0.88f},{0.72f,0.88f}};
+            case 10: return new float[][]{{0.28f,0.1f},{0.72f,0.1f},{0.5f,0.24f},{0.28f,0.38f},{0.72f,0.38f},{0.28f,0.62f},{0.72f,0.62f},{0.5f,0.76f},{0.28f,0.9f},{0.72f,0.9f}};
+>>>>>>> eb91623d56fc30f1e43fc9e0c94b1e587a9d419e
             default: return new float[][]{};
         }
     }
@@ -163,10 +175,18 @@ public class CardView extends View {
         centerPaint.setColor(color);
         pipPaint.setColor(color);
 
+<<<<<<< HEAD
         // --- Enlarged sizing: pips/symbols now fill roughly two-thirds of the card face ---
         float cornerSize = h * 0.085f;
         float centerSize = h * 0.66f;
         float pipSize = h * 0.26f;
+=======
+        // --- Enlarged sizing: scaled to this card's own height so pips/symbols
+        // fill roughly two-thirds of the card instead of a small fixed size. ---
+        float cornerSize = h * 0.085f;
+        float centerSize = h * 0.62f;
+        float pipSize = h * 0.20f;
+>>>>>>> eb91623d56fc30f1e43fc9e0c94b1e587a9d419e
         cornerPaint.setTextSize(cornerSize);
         centerPaint.setTextSize(centerSize);
         pipPaint.setTextSize(pipSize);
