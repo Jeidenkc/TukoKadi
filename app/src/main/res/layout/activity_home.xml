@@ -45,5 +45,16 @@
             android:textColor="#FFFFFF"
             android:textStyle="bold"
             android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/shareButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            android:text="SHARE"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="18sp" />
     </LinearLayout>
 </FrameLayout>

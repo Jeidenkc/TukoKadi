@@ -7,6 +7,8 @@ import android.widget.Button;
 
 public class HomeActivity extends Activity {
 
+    private static final String APK_LINK = "https://github.com/Jeidenkc/TukoKadi/releases/download/v1.3/TukoKadi-v1.3.apk";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +25,12 @@ public class HomeActivity extends Activity {
         }
         setContentView(R.layout.activity_home);
         HomeExtras.setup(this);
+        findViewById(R.id.shareButton).setOnClickListener(v -> {
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("text/plain");
+            share.putExtra(Intent.EXTRA_TEXT, "Play TukoKadi, the Kadi card game! Download it here: " + APK_LINK);
+            startActivity(Intent.createChooser(share, "Share TukoKadi"));
+        });
 
         findViewById(R.id.dailyGiftButton).setOnClickListener(v ->
                 startActivity(new android.content.Intent(this, DailyGiftActivity.class)));
