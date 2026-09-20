@@ -1,0 +1,63 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@drawable/bg_home_gradient"
+    android:padding="28dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TUKO KADI"
+        android:textColor="#D4AF37"
+        android:textSize="38sp"
+        android:textStyle="bold"
+        android:letterSpacing="0.05"
+        android:layout_marginBottom="72dp"/>
+
+    <Button
+        android:id="@+id/botPlayButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="68dp"
+        android:text="\u2660  BOT PLAY"
+        android:textColor="#0B3D20"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:background="@drawable/btn_bot_play"
+        android:elevation="6dp"
+        android:layout_marginBottom="28dp"/>
+
+    <Button
+        android:id="@+id/rafikiPlayButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="68dp"
+        android:text="\uD83E\uDD1D  RAFIKI PLAY"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:background="@drawable/btn_rafiki_play"
+        android:elevation="6dp"
+        android:layout_marginBottom="28dp"/>
+
+    <Button
+        android:id="@+id/faqsButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="68dp"
+        android:text="\? FAQs"
+        android:textColor="#0B3D20"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp"
+        android:background="@drawable/btn_faqs"
+        android:elevation="6dp"/>
+
+</LinearLayout>

@@ -1,0 +1,121 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="140dp"
+    android:height="200dp"
+    android:viewportWidth="140"
+    android:viewportHeight="200">
+
+    <!-- Card base -->
+    <path
+        android:pathData="M8,8 L132,8 A8,8 0 0 1 140,16 L140,192 A8,8 0 0 1 132,200 L8,200 A8,8 0 0 1 0,192 L0,16 A8,8 0 0 1 8,8 Z"
+        android:fillColor="#FFFDF7"/>
+
+    <!-- Outer border -->
+    <path
+        android:pathData="M8,8 L132,8 A8,8 0 0 1 140,16 L140,192 A8,8 0 0 1 132,200 L8,200 A8,8 0 0 1 0,192 L0,16 A8,8 0 0 1 8,8 Z"
+        android:strokeColor="#222222"
+        android:strokeWidth="2"
+        android:fillColor="#00000000"/>
+
+    <!-- Corner label top-left: JOKER -->
+    <path
+        android:pathData="M12,20 L14,20 M12,20 L12,28"
+        android:strokeColor="#C0392B"
+        android:strokeWidth="1.6"
+        android:fillColor="#00000000"/>
+
+    <!-- Small star top-left -->
+    <path
+        android:pathData="M16,16 L17.2,19 L20.4,19 L17.8,21 L18.8,24.2 L16,22.2 L13.2,24.2 L14.2,21 L11.6,19 L14.8,19 Z"
+        android:fillColor="#C0392B"/>
+
+    <!-- Small star bottom-right -->
+    <path
+        android:pathData="M124,176 L125.2,179 L128.4,179 L125.8,181 L126.8,184.2 L124,182.2 L121.2,184.2 L122.2,181 L119.6,179 L122.8,179 Z"
+        android:fillColor="#C0392B"/>
+
+    <!-- Jester hat - left point -->
+    <path
+        android:pathData="M45,75 C40,55 30,40 20,35 C28,38 42,42 50,60 Z"
+        android:fillColor="#8E44AD"/>
+    <path
+        android:pathData="M20,35 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#D4AF37"/>
+
+    <!-- Jester hat - right point -->
+    <path
+        android:pathData="M95,75 C100,55 110,40 120,35 C112,38 98,42 90,60 Z"
+        android:fillColor="#C0392B"/>
+    <path
+        android:pathData="M120,35 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#D4AF37"/>
+
+    <!-- Jester hat - center point -->
+    <path
+        android:pathData="M70,70 C68,45 66,30 70,18 C74,30 72,45 70,70 Z"
+        android:fillColor="#2E86AB"/>
+    <path
+        android:pathData="M70,18 m-4,0 a4,4 0 1,0 8,0 a4,4 0 1,0 -8,0"
+        android:fillColor="#D4AF37"/>
+
+    <!-- Hat base band -->
+    <path
+        android:pathData="M42,78 C50,68 90,68 98,78 C90,84 50,84 42,78 Z"
+        android:fillColor="#8E44AD"/>
+
+    <!-- Face -->
+    <path
+        android:pathData="M70,82 m-24,0 a24,26 0 1,0 48,0 a24,26 0 1,0 -48,0"
+        android:fillColor="#F5D6A8"/>
+
+    <!-- Eyes -->
+    <path
+        android:pathData="M60,80 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"
+        android:fillColor="#222222"/>
+    <path
+        android:pathData="M80,80 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"
+        android:fillColor="#222222"/>
+
+    <!-- Eyebrows -->
+    <path
+        android:pathData="M55,73 C57,71 61,71 63,73"
+        android:strokeColor="#222222"
+        android:strokeWidth="1.6"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M77,73 C79,71 83,71 85,73"
+        android:strokeColor="#222222"
+        android:strokeWidth="1.6"
+        android:fillColor="#00000000"/>
+
+    <!-- Nose -->
+    <path
+        android:pathData="M70,82 L67,90 C69,92 71,92 73,90 Z"
+        android:fillColor="#E8A96F"/>
+
+    <!-- Wide grin smile -->
+    <path
+        android:pathData="M54,94 C60,104 80,104 86,94 C80,100 60,100 54,94 Z"
+        android:fillColor="#C0392B"/>
+
+    <!-- Cheek marks -->
+    <path
+        android:pathData="M50,88 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"
+        android:fillColor="#F1948A"/>
+    <path
+        android:pathData="M90,88 m-3,0 a3,3 0 1,0 6,0 a3,3 0 1,0 -6,0"
+        android:fillColor="#F1948A"/>
+
+    <!-- Collar ruffle -->
+    <path
+        android:pathData="M40,108 L48,116 L56,108 L64,116 L70,108 L76,116 L84,108 L92,116 L100,108 L94,128 L46,128 Z"
+        android:fillColor="#2E86AB"/>
+    <path
+        android:pathData="M46,128 L94,128 L90,140 L50,140 Z"
+        android:fillColor="#8E44AD"/>
+
+    <!-- Bottom mirrored small star -->
+    <path
+        android:pathData="M16,184 L17.2,181 L20.4,181 L17.8,179 L18.8,175.8 L16,177.8 L13.2,175.8 L14.2,179 L11.6,181 L14.8,181 Z"
+        android:fillColor="#C0392B"/>
+
+</vector>

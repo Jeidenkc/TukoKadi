@@ -110,11 +110,10 @@ public class GameEngine {
         }
 
         if (declaredSuit != null) {
-            return card.suit == declaredSuit ||
-                    card.rank == topCard().rank;
+            return card.suit == declaredSuit;
         }
 
-        return card.matches(topCard());
+        return card.suit == topCard().suit;
     }
 
     public boolean playCard(Card card) {
@@ -346,11 +345,9 @@ public class GameEngine {
         }
 
         if (rank == Card.Rank.TWO) {
-            stackPenalty(Card.Rank.TWO, 2);
-
+            stackPenalty(Card.Rank.TWO, 2 * cards.size());
         } else if (rank == Card.Rank.THREE) {
-            stackPenalty(Card.Rank.THREE, 3);
-
+            stackPenalty(Card.Rank.THREE, 3 * cards.size());
         } else {
             pendingPenalty = 0;
             pendingPenaltyRank = null;
@@ -387,11 +384,10 @@ public class GameEngine {
         }
 
         if (simDeclaredSuit != null) {
-            return card.suit == simDeclaredSuit ||
-                    card.rank == top.rank;
+            return card.suit == simDeclaredSuit;
         }
 
-        return card.matches(top);
+        return card.suit == top.suit;
     }
 
     private boolean isWinningRank(Card.Rank r) {

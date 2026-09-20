@@ -1,0 +1,84 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="140dp"
+    android:height="200dp"
+    android:viewportWidth="140"
+    android:viewportHeight="200">
+
+    <!-- Card base -->
+    <path
+        android:pathData="M8,8 L132,8 A8,8 0 0 1 140,16 L140,192 A8,8 0 0 1 132,200 L8,200 A8,8 0 0 1 0,192 L0,16 A8,8 0 0 1 8,8 Z"
+        android:fillColor="#0B3D20"/>
+
+    <!-- Outer border -->
+    <path
+        android:pathData="M8,8 L132,8 A8,8 0 0 1 140,16 L140,192 A8,8 0 0 1 132,200 L8,200 A8,8 0 0 1 0,192 L0,16 A8,8 0 0 1 8,8 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="3"
+        android:fillColor="#00000000"/>
+
+    <!-- Inner border -->
+    <path
+        android:pathData="M14,14 L126,14 A6,6 0 0 1 132,20 L132,180 A6,6 0 0 1 126,186 L14,186 A6,6 0 0 1 8,180 L8,20 A6,6 0 0 1 14,14 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1.5"
+        android:fillColor="#00000000"/>
+
+    <!-- Diamond lattice pattern -->
+    <path
+        android:pathData="M70,30 L90,50 L70,70 L50,50 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M70,70 L90,90 L70,110 L50,90 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M70,110 L90,130 L70,150 L50,130 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M40,50 L60,70 L40,90 L20,70 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M100,50 L120,70 L100,90 L80,70 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M40,90 L60,110 L40,130 L20,110 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M100,90 L120,110 L100,130 L80,110 Z"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="1"
+        android:fillColor="#00000000"/>
+
+    <!-- Center emblem circle -->
+    <path
+        android:pathData="M70,80 m-22,0 a22,22 0 1,0 44,0 a22,22 0 1,0 -44,0"
+        android:fillColor="#0B3D20"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2"/>
+
+    <!-- TK monogram - T -->
+    <path
+        android:pathData="M56,72 L66,72 M61,72 L61,90"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+
+    <!-- TK monogram - K -->
+    <path
+        android:pathData="M75,72 L75,90 M75,81 L84,72 M75,81 L84,90"
+        android:strokeColor="#D4AF37"
+        android:strokeWidth="2.5"
+        android:fillColor="#00000000"/>
+
+</vector>

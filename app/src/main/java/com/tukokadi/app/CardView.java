@@ -114,6 +114,9 @@ public class CardView extends View {
     }
 
     private static float[][] pipPositions(int n) {
+        if (n == 8) return new float[][]{{0.26f,0.18f},{0.74f,0.18f},{0.5f,0.34f},{0.26f,0.5f},{0.74f,0.5f},{0.5f,0.66f},{0.26f,0.82f},{0.74f,0.82f}};
+        if (n == 9) return new float[][]{{0.26f,0.18f},{0.74f,0.18f},{0.26f,0.344f},{0.74f,0.344f},{0.5f,0.5f},{0.26f,0.656f},{0.74f,0.656f},{0.26f,0.82f},{0.74f,0.82f}};
+        if (n == 10) return new float[][]{{0.26f,0.18f},{0.74f,0.18f},{0.5f,0.287f},{0.26f,0.393f},{0.74f,0.393f},{0.26f,0.607f},{0.74f,0.607f},{0.5f,0.713f},{0.26f,0.82f},{0.74f,0.82f}};
         switch (n) {
             case 2: return new float[][]{{0.5f,0.20f},{0.5f,0.80f}};
             case 3: return new float[][]{{0.5f,0.18f},{0.5f,0.5f},{0.5f,0.82f}};
@@ -166,7 +169,7 @@ public class CardView extends View {
         // --- Enlarged sizing: pips/symbols now fill roughly two-thirds of the card face ---
         float cornerSize = h * 0.085f;
         float centerSize = h * 0.66f;
-        float pipSize = h * 0.26f;
+        float pipSize = h * (pipCount >= 8 ? 0.20f : 0.26f);
         cornerPaint.setTextSize(cornerSize);
         centerPaint.setTextSize(centerSize);
         pipPaint.setTextSize(pipSize);

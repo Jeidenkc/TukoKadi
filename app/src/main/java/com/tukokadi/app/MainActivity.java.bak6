@@ -5,9 +5,6 @@ import android.media.AudioAttributes;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.ClipData;
-import android.content.ClipDescription;
-import android.view.DragEvent;
 import android.app.AlertDialog;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -64,7 +61,6 @@ public class MainActivity extends Activity {
     private Button newGameButton;
     private CountDownTimer turnTimer;
     private CountDownTimer botTimer;
-    private AvatarView youAvatar, bobAvatar, carolAvatar;
     private ToneGenerator toneGen;
     private Handler soundHandler = new Handler(Looper.getMainLooper());
     private Vibrator vibrator;
@@ -75,8 +71,6 @@ public class MainActivity extends Activity {
     private int cardH;
     private int screenW;
     private int overlapMargin;
-    private List<Card> handOrder = new ArrayList<>();
-    private List<View> highlightedGroupViews = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,21 +140,6 @@ public class MainActivity extends Activity {
         bobTimerText.setTypeface(null, Typeface.BOLD);
         bobTimerText.setTextColor(Color.parseColor("#FF5252"));
         bobTimerText.setGravity(Gravity.CENTER);
-        bobAvatar = new AvatarView(this);
-        bobAvatar.setPlayer("Bob", null);
-        LinearLayout.LayoutParams bobAvLp = new LinearLayout.LayoutParams((int) (56 * getResources().getDisplayMetrics().density), (int) (56 * getResources().getDisplayMetrics().density));
-        bobAvLp.gravity = Gravity.CENTER_HORIZONTAL;
-        bobColumn.addView(bobAvatar, bobAvLp);
-        TextView bobNameLabel = new TextView(this);
-        bobNameLabel.setText("Bob");
-        bobNameLabel.setTextColor(Color.parseColor("#F4D160"));
-        bobNameLabel.setTextSize(14);
-        bobNameLabel.setGravity(Gravity.CENTER);
-        bobNameLabel.setTypeface(null, android.graphics.Typeface.BOLD);
-        LinearLayout.LayoutParams bobNameLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        bobNameLp.topMargin = (int) (4 * getResources().getDisplayMetrics().density);
-        bobColumn.addView(bobNameLabel, bobNameLp);
         bobColumn.addView(bobTimerText);
 
         bobContainer = new LinearLayout(this);
@@ -168,13 +147,13 @@ public class MainActivity extends Activity {
         bobContainer.setGravity(Gravity.CENTER);
         bobColumn.addView(bobContainer);
 
-        botsRow.addView(bobColumn, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        botsRow.addView(bobColumn);
 
         View botGap = new View(this);
         LinearLayout.LayoutParams gapParams = new LinearLayout.LayoutParams(0, 1, 1f);
         botGap.setMinimumWidth(botGapPx);
         botGap.setLayoutParams(gapParams);
-        
+        botsRow.addView(botGap);
 
         LinearLayout carolColumn = new LinearLayout(this);
         carolColumn.setOrientation(LinearLayout.VERTICAL);
@@ -187,21 +166,6 @@ public class MainActivity extends Activity {
         carolTimerText.setTypeface(null, Typeface.BOLD);
         carolTimerText.setTextColor(Color.parseColor("#FF5252"));
         carolTimerText.setGravity(Gravity.CENTER);
-        carolAvatar = new AvatarView(this);
-        carolAvatar.setPlayer("Carol", null);
-        LinearLayout.LayoutParams carolAvLp = new LinearLayout.LayoutParams((int) (56 * getResources().getDisplayMetrics().density), (int) (56 * getResources().getDisplayMetrics().density));
-        carolAvLp.gravity = Gravity.CENTER_HORIZONTAL;
-        carolColumn.addView(carolAvatar, carolAvLp);
-        TextView carolNameLabel = new TextView(this);
-        carolNameLabel.setText("Carol");
-        carolNameLabel.setTextColor(Color.parseColor("#F4D160"));
-        carolNameLabel.setTextSize(14);
-        carolNameLabel.setGravity(Gravity.CENTER);
-        carolNameLabel.setTypeface(null, android.graphics.Typeface.BOLD);
-        LinearLayout.LayoutParams carolNameLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        carolNameLp.topMargin = (int) (4 * getResources().getDisplayMetrics().density);
-        carolColumn.addView(carolNameLabel, carolNameLp);
         carolColumn.addView(carolTimerText);
 
         carolContainer = new LinearLayout(this);
@@ -209,7 +173,7 @@ public class MainActivity extends Activity {
         carolContainer.setGravity(Gravity.CENTER);
         carolColumn.addView(carolContainer);
 
-        botsRow.addView(carolColumn, new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f));
+        botsRow.addView(carolColumn);
 
         rootLayout.addView(botsRow);
 
@@ -229,6 +193,7 @@ public class MainActivity extends Activity {
         drawLabel.setTextColor(Color.parseColor("#FFD700"));
         drawLabel.setGravity(Gravity.CENTER);
         drawLabel.setPadding(0, 0, 0, 6);
+        drawPileColumn.addView(drawLabel);
 
         drawPileCardView = new CardView(this);
         drawPileCardView.setFaceDown(true);
@@ -237,7 +202,6 @@ public class MainActivity extends Activity {
         pileParams.setMargins(16, 0, 16, 0);
         drawPileCardView.setLayoutParams(pileParams);
         drawPileCardView.setOnClickListener(v -> {
-            if (game.currentPlayerIndex == 0 && !game.gameOver) DrawFly.fly(MainActivity.this, drawPileCardView, handLayout);
             if (game.currentPlayerIndex == 0 && !game.gameOver) {
                 playDrawSound();
                 game.drawCard();
@@ -245,27 +209,9 @@ public class MainActivity extends Activity {
                 runNextBotTurnIfNeeded();
             }
         });
-        int deckLayers = 6;
-        int deckStep = (int) (3 * getResources().getDisplayMetrics().density);
-        android.widget.FrameLayout deckStack = new android.widget.FrameLayout(this);
-        for (int di = 0; di < deckLayers - 1; di++) {
-            CardView under = new CardView(this);
-            under.setFaceDown(true);
-            android.widget.FrameLayout.LayoutParams ulp = new android.widget.FrameLayout.LayoutParams(cardW, cardH);
-            ulp.leftMargin = di * deckStep;
-            deckStack.addView(under, ulp);
-        }
-        android.widget.FrameLayout.LayoutParams topLp = new android.widget.FrameLayout.LayoutParams(cardW, cardH);
-        topLp.leftMargin = (deckLayers - 1) * deckStep;
-        deckStack.addView(drawPileCardView, topLp);
-        deckStack.setOnClickListener(dv -> drawPileCardView.performClick());
-        LinearLayout.LayoutParams deckLp = new LinearLayout.LayoutParams(cardW + (deckLayers - 1) * deckStep, cardH);
-        deckLp.setMargins(16, 0, 16, 0);
-        drawPileColumn.addView(deckStack, deckLp);
-        drawPileColumn.addView(drawLabel);
+        drawPileColumn.addView(drawPileCardView);
 
         tableLayout.addView(drawPileColumn);
-        drawPileColumn.setTranslationX(-20f * getResources().getDisplayMetrics().density);
 
         LinearLayout discardColumn = new LinearLayout(this);
         discardColumn.setOrientation(LinearLayout.VERTICAL);
@@ -282,9 +228,9 @@ public class MainActivity extends Activity {
         topCardText.setTypeface(null, Typeface.BOLD);
         topCardText.setPadding(0, 8, 0, 4);
         topCardText.setGravity(Gravity.END);
+        discardColumn.addView(topCardText);
 
         tableLayout.addView(discardColumn);
-        tableLayout.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.TOP);
 
         rootLayout.addView(tableLayout);
 
@@ -321,20 +267,13 @@ public class MainActivity extends Activity {
         handLabel.setTextSize(16);
         handLabel.setTypeface(null, Typeface.BOLD);
         handLabel.setTextColor(GREEN_DARK);
-        youAvatar = new AvatarView(this);
-        youAvatar.setPlayer("You", null);
-        rootLayout.addView(youAvatar, new LinearLayout.LayoutParams((int) (56 * getResources().getDisplayMetrics().density), (int) (56 * getResources().getDisplayMetrics().density)));
         rootLayout.addView(handLabel);
 
-        handLayout = new HandRow(this);
+        handLayout = new LinearLayout(this);
         handLayout.setOrientation(LinearLayout.HORIZONTAL);
         handLayout.setGravity(Gravity.CENTER_VERTICAL);
         handLayout.setPadding(8, 8, 8, 8);
-        LinearLayout handScroll = new LinearLayout(this);
-        handScroll.setClipChildren(false);
-        handScroll.setClipToPadding(false);
-        handLayout.setClipChildren(false);
-        handLayout.setClipToPadding(false);
+        HorizontalScrollView handScroll = new HorizontalScrollView(this);
         handScroll.addView(handLayout);
         rootLayout.addView(handScroll);
 
@@ -358,20 +297,12 @@ public class MainActivity extends Activity {
         });
         rootLayout.addView(newGameButton);
 
-        FitLayout scroll = new FitLayout(this);
-        
+        ScrollView scroll = new ScrollView(this);
+        scroll.setFillViewport(true);
         scroll.addView(rootLayout);
         setContentView(scroll);
 
         startNewGame();
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        soundHandler.removeCallbacksAndMessages(null);
-        cancelTurnTimer();
-        cancelBotTimer();
     }
 
     @Override
@@ -450,25 +381,6 @@ public class MainActivity extends Activity {
         soundPool.play(soundPlaying, 1f, 1f, 1, 0, 1f);
     }
 
-    private void playGroupAvailableSound() {
-        ensureSounds();
-        soundPool.play(soundTimer, 1f, 1f, 1, 0, 1.35f);
-    }
-
-    private void clearGroupHighlights() {
-        for (View v : highlightedGroupViews) {
-            v.setForeground(null);
-            v.animate().translationY(0f).scaleX(1f).scaleY(1f).setDuration(150).start();
-            v.setElevation(0f);
-        }
-        highlightedGroupViews.clear();
-    }
-
-    private void highlightGroupCards(Card firstCard, List<Card> others) {
-        clearGroupHighlights();
-        // Highlighting disabled intentionally - player chooses freely without visual hints.
-    }
-
     private void playTickSound(long secondsLeft) {
         ensureSounds();
         if (secondsLeft == 4) {
@@ -510,7 +422,6 @@ public class MainActivity extends Activity {
         cancelBotTimer();
         game = new GameEngine(Arrays.asList("You", "Bob", "Carol"));
         winAnnounced = false;
-        handOrder.clear();
         refresh();
         runNextBotTurnIfNeeded();
     }
@@ -570,20 +481,6 @@ public class MainActivity extends Activity {
         container.addView(label);
     }
 
-    private void updateDeclaredChip() {
-        Card.Suit s = game.declaredSuit;
-        if (s == null) {
-            declaredSuitText.setText("");
-            declaredSuitText.setBackgroundColor(Color.TRANSPARENT);
-            return;
-        }
-        boolean red = (s == Card.Suit.HEARTS || s == Card.Suit.DIAMONDS);
-        declaredSuitText.setText("  Next: " + suitSymbol(s) + "  ");
-        declaredSuitText.setTextSize(24);
-        declaredSuitText.setTextColor(Color.parseColor(red ? "#E53935" : "#212121"));
-        declaredSuitText.setBackgroundColor(Color.WHITE);
-    }
-
     private void flipDiscard(Card card) {
         discardCardView.animate().scaleX(0f).setDuration(120).withEndAction(() -> {
             discardCardView.setCard(rankLabel(card.rank), suitSymbol(card.suit), isRed(card));
@@ -596,9 +493,9 @@ public class MainActivity extends Activity {
         topCardText.setText(suitSymbol(game.topCard().suit));
 
         if (game.declaredSuit != null) {
-            updateDeclaredChip();
+            declaredSuitText.setText(game.declaredSuit != null ? suitSymbol(game.declaredSuit) : "");
         } else {
-            updateDeclaredChip();
+            declaredSuitText.setText("");
         }
 
         Card topNow = game.topCard();
@@ -622,24 +519,13 @@ public class MainActivity extends Activity {
 
         handLayout.removeAllViews();
         Player you = game.players.get(0);
+        List<Card> sortedHand = new ArrayList<>(you.hand);
+        sortedHand.sort(Comparator
+                .comparing((Card c) -> c.suit.ordinal())
+                .thenComparing(c -> c.rank.value));
 
-        if (handOrder.isEmpty() && !you.hand.isEmpty()) {
-            handOrder.addAll(you.hand);
-            handOrder.sort(Comparator
-                    .comparing((Card c) -> c.suit.ordinal())
-                    .thenComparing(c -> c.rank.value));
-        } else {
-            handOrder.retainAll(you.hand);
-            for (Card c : you.hand) {
-                if (!handOrder.contains(c)) {
-                    handOrder.add(c);
-                }
-            }
-        }
-
-        for (int i = 0; i < handOrder.size(); i++) {
-            final int index = i;
-            Card card = handOrder.get(i);
+        for (int i = 0; i < sortedHand.size(); i++) {
+            Card card = sortedHand.get(i);
             CardView cardView = new CardView(this);
             cardView.setCard(rankLabel(card.rank), suitSymbol(card.suit), isRed(card));
             cardView.setClickable(true);
@@ -650,53 +536,6 @@ public class MainActivity extends Activity {
             cardParams.rightMargin = 6;
             cardView.setLayoutParams(cardParams);
             cardView.setOnClickListener(v -> onCardTapped(card, v));
-            cardView.setOnLongClickListener(v -> {
-                ClipData.Item item = new ClipData.Item(String.valueOf(index));
-                ClipData dragData = new ClipData(
-                        "card_reorder",
-                        new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN},
-                        item);
-                View.DragShadowBuilder shadowBuilder = new View.DragShadowBuilder(v);
-                v.startDragAndDrop(dragData, shadowBuilder, v, 0);
-                v.setAlpha(0.4f);
-                return true;
-            });
-            cardView.setOnDragListener((v, event) -> {
-                switch (event.getAction()) {
-                    case DragEvent.ACTION_DRAG_STARTED:
-                        return true;
-                    case DragEvent.ACTION_DRAG_ENTERED:
-                        v.setScaleY(1.08f);
-                        return true;
-                    case DragEvent.ACTION_DRAG_EXITED:
-                        v.setScaleY(1f);
-                        return true;
-                    case DragEvent.ACTION_DROP: {
-                        v.setScaleY(1f);
-                        try {
-                            int fromIndex = Integer.parseInt(
-                                    event.getClipData().getItemAt(0).getText().toString());
-                            int toIndex = index;
-                            if (fromIndex != toIndex && fromIndex >= 0 && fromIndex < handOrder.size()) {
-                                Card moved = handOrder.remove(fromIndex);
-                                if (toIndex > handOrder.size()) toIndex = handOrder.size();
-                                handOrder.add(toIndex, moved);
-                                refresh();
-                            }
-                        } catch (Exception ignored) {
-                        }
-                        return true;
-                    }
-                    case DragEvent.ACTION_DRAG_ENDED: {
-                        v.setScaleY(1f);
-                        View draggedView = (View) event.getLocalState();
-                        if (draggedView != null) draggedView.setAlpha(1f);
-                        return true;
-                    }
-                    default:
-                        return true;
-                }
-            });
             handLayout.addView(cardView);
         }
 
@@ -709,9 +548,6 @@ public class MainActivity extends Activity {
     }
 
     private void startTurnTimer() {
-        bobAvatar.stopCountdown();
-        carolAvatar.stopCountdown();
-        youAvatar.startCountdown(10000);
         turnTimer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -737,7 +573,6 @@ public class MainActivity extends Activity {
     }
 
     private void cancelTurnTimer() {
-        if (youAvatar != null) youAvatar.stopCountdown();
         if (turnTimer != null) {
             turnTimer.cancel();
             turnTimer = null;
@@ -745,8 +580,6 @@ public class MainActivity extends Activity {
     }
 
     private void cancelBotTimer() {
-        if (bobAvatar != null) bobAvatar.stopCountdown();
-        if (carolAvatar != null) carolAvatar.stopCountdown();
         if (botTimer != null) {
             botTimer.cancel();
             botTimer = null;
@@ -767,9 +600,6 @@ public class MainActivity extends Activity {
         TextView otherTimerText = (idx == 1) ? carolTimerText : bobTimerText;
         if (otherTimerText != null) otherTimerText.setText("");
 
-        youAvatar.stopCountdown();
-        (idx == 1 ? carolAvatar : bobAvatar).stopCountdown();
-        (idx == 1 ? bobAvatar : carolAvatar).startCountdown(10000);
         botTimer = new CountDownTimer(10000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -911,179 +741,55 @@ public class MainActivity extends Activity {
 
     private void promptForGroupPlay(Card firstCard, List<Card> others) {
         cancelTurnTimer();
-
-        highlightGroupCards(firstCard, others);
-        playGroupAvailableSound();
-
-        LinearLayout box = new LinearLayout(this);
-        box.setOrientation(LinearLayout.VERTICAL);
-        box.setGravity(Gravity.CENTER);
-        box.setPadding(48, 36, 48, 36);
-        android.graphics.drawable.GradientDrawable boxBg =
-                new android.graphics.drawable.GradientDrawable();
-        boxBg.setColor(Color.parseColor("#CC0B3D20"));
-        boxBg.setCornerRadius(32);
-        box.setBackground(boxBg);
-
-        TextView msg = new TextView(this);
-        msg.setText("You have " + (others.size() + 1) + " cards of rank "
-                + rankLabel(firstCard.rank) + " \u2014 the glowing cards can be played together.");
-        msg.setTextColor(Color.WHITE);
-        msg.setTextSize(15);
-        msg.setGravity(Gravity.CENTER);
-        msg.setPadding(0, 0, 0, 28);
-        box.addView(msg);
-
-        LinearLayout buttonRow = new LinearLayout(this);
-        buttonRow.setOrientation(LinearLayout.HORIZONTAL);
-        buttonRow.setGravity(Gravity.CENTER);
-
-        Button ignoreBtn = new Button(this);
-        ignoreBtn.setText("Ignore");
-        ignoreBtn.setTextColor(Color.WHITE);
-        android.graphics.drawable.GradientDrawable ignoreBg =
-                new android.graphics.drawable.GradientDrawable();
-        ignoreBg.setColor(Color.parseColor("#33FFFFFF"));
-        ignoreBg.setCornerRadius(100);
-        ignoreBg.setStroke(2, Color.WHITE);
-        ignoreBtn.setBackground(ignoreBg);
-        LinearLayout.LayoutParams ignoreLp = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        ignoreLp.rightMargin = 24;
-        ignoreBtn.setLayoutParams(ignoreLp);
-        ignoreBtn.setPadding(48, 20, 48, 20);
-
-        Button playBtn = new Button(this);
-        playBtn.setText("Play");
-        playBtn.setTextColor(Color.parseColor("#0B3D20"));
-        playBtn.setTypeface(null, Typeface.BOLD);
-        android.graphics.drawable.GradientDrawable playBg =
-                new android.graphics.drawable.GradientDrawable();
-        playBg.setColor(Color.parseColor("#FFD700"));
-        playBg.setCornerRadius(100);
-        playBtn.setBackground(playBg);
-        playBtn.setPadding(48, 20, 48, 20);
-
-        buttonRow.addView(ignoreBtn);
-        buttonRow.addView(playBtn);
-        box.addView(buttonRow);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setView(box)
-                .setCancelable(false)
-                .create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(
-                    new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
-            dialog.getWindow().setDimAmount(0.25f);
+        String[] labels = new String[others.size()];
+        boolean[] checked = new boolean[others.size()];
+        for (int i = 0; i < others.size(); i++) {
+            labels[i] = displayName(others.get(i));
         }
 
-        ignoreBtn.setOnClickListener(v -> {
-            clearGroupHighlights();
-            game.playCard(firstCard, null);
-            playCorrectSound();
-            refresh();
-            runNextBotTurnIfNeeded();
-            dialog.dismiss();
-        });
-
-        playBtn.setOnClickListener(v -> {
-            clearGroupHighlights();
-            List<Card> group = new ArrayList<>();
-            group.add(firstCard);
-            group.addAll(others);
-            boolean ok = game.playCardGroup(group);
-            if (!ok) {
-                Toast.makeText(this, "Couldn't play that combination — playing just one card", Toast.LENGTH_SHORT).show();
-                game.playCard(firstCard, null);
-                playCorrectSound();
-            } else {
-                playGroupSound();
-            }
-            refresh();
-            runNextBotTurnIfNeeded();
-            dialog.dismiss();
-        });
-
-        dialog.show();
+        new AlertDialog.Builder(this)
+                .setTitle("You have more " + rankLabel(firstCard.rank) + "s — play together?")
+                .setMultiChoiceItems(labels, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
+                .setPositiveButton("Play Selected", (dialog, which) -> {
+                    List<Card> group = new ArrayList<>();
+                    group.add(firstCard);
+                    for (int i = 0; i < others.size(); i++) {
+                        if (checked[i]) group.add(others.get(i));
+                    }
+                    boolean ok = group.size() > 1 && game.playCardGroup(group);
+                    if (!ok) {
+                        Toast.makeText(this, "Couldn't play that combination — playing just one card", Toast.LENGTH_SHORT).show();
+                        game.playCard(firstCard, null);
+                        playCorrectSound();
+                    } else {
+                        playGroupSound();
+                    }
+                    refresh();
+                    runNextBotTurnIfNeeded();
+                })
+                .setNegativeButton("Just This One", (dialog, which) -> {
+                    game.playCard(firstCard, null);
+                    playCorrectSound();
+                    refresh();
+                    runNextBotTurnIfNeeded();
+                })
+                .setCancelable(false)
+                .show();
     }
 
     private void promptForSuit(Card aceCard) {
         cancelTurnTimer();
-        float density = getResources().getDisplayMetrics().density;
-
-        LinearLayout panel = new LinearLayout(this);
-        panel.setOrientation(LinearLayout.VERTICAL);
-        panel.setGravity(Gravity.CENTER);
-        panel.setPadding(24, 32, 24, 32);
-        android.graphics.drawable.GradientDrawable panelBg =
-                new android.graphics.drawable.GradientDrawable();
-        panelBg.setColor(Color.parseColor("#330B3D20"));
-        panelBg.setCornerRadius(32);
-        panel.setBackground(panelBg);
-
-        TextView title = new TextView(this);
-        title.setText("Choose next suit");
-        title.setTextColor(Color.WHITE);
-        title.setTextSize(16);
-        title.setTypeface(null, Typeface.BOLD);
-        title.setGravity(Gravity.CENTER);
-        title.setPadding(0, 0, 0, 20);
-        panel.addView(title);
-
-        android.widget.GridLayout grid = new android.widget.GridLayout(this);
-        grid.setColumnCount(2);
-        grid.setRowCount(2);
-
-        String[] symbols = {"\u2665", "\u2666", "\u2663", "\u2660"};
-        Card.Suit[] suits = {Card.Suit.HEARTS, Card.Suit.DIAMONDS, Card.Suit.CLUBS, Card.Suit.SPADES};
-
-        AlertDialog[] dialogHolder = new AlertDialog[1];
-
-        for (int i = 0; i < 4; i++) {
-            final Card.Suit chosen = suits[i];
-            Button b = new Button(this);
-            b.setText(symbols[i]);
-            b.setTextSize(56);
-            boolean red = (chosen == Card.Suit.HEARTS || chosen == Card.Suit.DIAMONDS);
-            b.setTextColor(red ? Color.parseColor("#FF5252") : Color.WHITE);
-            android.graphics.drawable.GradientDrawable cellBg =
-                    new android.graphics.drawable.GradientDrawable();
-            cellBg.setColor(Color.parseColor("#33FFFFFF"));
-            cellBg.setCornerRadius(24);
-            cellBg.setStroke((int) (1 * density), Color.parseColor("#55FFD700"));
-            b.setBackground(cellBg);
-
-            android.widget.GridLayout.LayoutParams lp = new android.widget.GridLayout.LayoutParams();
-            lp.width = (int) (110 * density);
-            lp.height = (int) (110 * density);
-            lp.setMargins(12, 12, 12, 12);
-            lp.rowSpec = android.widget.GridLayout.spec(i / 2);
-            lp.columnSpec = android.widget.GridLayout.spec(i % 2);
-            b.setLayoutParams(lp);
-
-            b.setOnClickListener(v -> {
-                game.playCard(aceCard, chosen);
-                playCorrectSound();
-                refresh();
-                runNextBotTurnIfNeeded();
-                if (dialogHolder[0] != null) dialogHolder[0].dismiss();
-            });
-
-            grid.addView(b);
-        }
-        panel.addView(grid);
-
-        AlertDialog dialog = new AlertDialog.Builder(this)
-                .setView(panel)
+        String[] suitNames = {"HEARTS", "DIAMONDS", "CLUBS", "SPADES"};
+        new AlertDialog.Builder(this)
+                .setTitle("Choose next suit")
+                .setItems(suitNames, (dialog, which) -> {
+                    Card.Suit chosen = Card.Suit.values()[which];
+                    game.playCard(aceCard, chosen);
+                    playCorrectSound();
+                    refresh();
+                    runNextBotTurnIfNeeded();
+                })
                 .setCancelable(false)
-                .create();
-        if (dialog.getWindow() != null) {
-            dialog.getWindow().setBackgroundDrawable(
-                    new android.graphics.drawable.ColorDrawable(Color.TRANSPARENT));
-            dialog.getWindow().setDimAmount(0.35f);
-        }
-        dialogHolder[0] = dialog;
-        dialog.show();
+                .show();
     }
 }

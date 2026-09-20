@@ -1,0 +1,145 @@
+package com.tukokadi.app;
+
+import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.view.Gravity;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import android.widget.Toast;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+public class WalletActivity extends Activity {
+    private TextView balanceView;
+    private LinearLayout historyBox;
+
+    private int dp(int v) {
+        return (int) (v * getResources().getDisplayMetrics().density);
+    }
+
+    private Button makeButton(String text) {
+        Button b = new Button(this);
+        b.setText(text);
+        b.setTextColor(Color.parseColor("#0B3D20"));
+        b.setTypeface(null, Typeface.BOLD);
+        b.setBackgroundColor(Color.parseColor("#D4AF37"));
+        return b;
+    }
+
+    private LinearLayout.LayoutParams rowParams() {
+        LinearLayout.LayoutParams lp =
+            new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
+        lp.setMargins(dp(6), 0, dp(6), 0);
+        return lp;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        LinearLayout root = new LinearLayout(this);
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setPadding(dp(24), dp(40), dp(24), dp(24));
+        root.setBackgroundResource(R.drawable.bg_home_gradient);
+
+        TextView title = new TextView(this);
+        title.setText("MY WALLET");
+        title.setTextColor(Color.parseColor("#D4AF37"));
+        title.setTextSize(28);
+        title.setTypeface(null, Typeface.BOLD);
+        title.setGravity(Gravity.CENTER);
+        root.addView(title);
+
+        balanceView = new TextView(this);
+        balanceView.setTextColor(Color.WHITE);
+        balanceView.setTextSize(40);
+        balanceView.setGravity(Gravity.CENTER);
+        balanceView.setPadding(0, dp(24), 0, dp(24));
+        root.addView(balanceView);
+
+        LinearLayout row = new LinearLayout(this);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        Button deposit = makeButton("DEPOSIT");
+        Button withdraw = makeButton("WITHDRAW");
+        row.addView(deposit, rowParams());
+        row.addView(withdraw, rowParams());
+        root.addView(row);
+
+        TextView label = new TextView(this);
+        label.setText("TRANSACTIONS");
+        label.setTextColor(Color.WHITE);
+        label.setTextSize(16);
+        label.setTypeface(null, Typeface.BOLD);
+        label.setPadding(0, dp(28), 0, dp(8));
+        root.addView(label);
+
+        ScrollView scroll = new ScrollView(this);
+        historyBox = new LinearLayout(this);
+        historyBox.setOrientation(LinearLayout.VERTICAL);
+        scroll.addView(historyBox);
+        root.addView(scroll, new LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT, 0, 1));
+
+        deposit.setOnClickListener(v -> {
+            KibWallet.add(this, 500, "Test top-up");
+            refresh();
+        });
+        withdraw.setOnClickListener(v ->
+            Toast.makeText(this, "Withdraw coming soon", Toast.LENGTH_SHORT).show());
+
+        setContentView(root);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    private void refresh() {
+        Api.get("/me", Api.token(this), (ok, j, e) -> {
+            if (!ok) {
+                Toast.makeText(this, e, Toast.LENGTH_LONG).show();
+                return;
+            }
+            List<String[]> list = new java.util.ArrayList<>();
+            org.json.JSONArray h = j.optJSONArray("history");
+            for (int i = 0; h != null && i < h.length(); i++) {
+                org.json.JSONObject o = h.optJSONObject(i);
+                list.add(new String[]{String.valueOf(o.optLong("t")), o.optString("reason"),
+                    String.valueOf(o.optLong("amount")), String.valueOf(o.optLong("balance"))});
+            }
+            render(j.optLong("balance"), list);
+        });
+    }
+
+    private void render(long balance, List<String[]> list) {
+        balanceView.setText(String.format("%,d", balance) + " Coins");
+        historyBox.removeAllViews();
+        if (list.isEmpty()) {
+            TextView none = new TextView(this);
+            none.setText("No transactions yet");
+            none.setTextColor(Color.LTGRAY);
+            historyBox.addView(none);
+            return;
+        }
+        SimpleDateFormat fmt = new SimpleDateFormat("dd MMM, HH:mm", Locale.getDefault());
+        for (String[] t : list) {
+            long amt = Long.parseLong(t[2]);
+            String when = fmt.format(new Date(Long.parseLong(t[0])));
+            TextView tv = new TextView(this);
+            tv.setText((amt >= 0 ? "+" : "") + amt + " Coins   " + t[1]
+                + "\n" + when + "  |  Balance " + t[3]);
+            tv.setTextColor(Color.parseColor(amt >= 0 ? "#7CFC9A" : "#FF8A80"));
+            tv.setTextSize(15);
+            tv.setPadding(0, dp(8), 0, dp(8));
+            historyBox.addView(tv);
+        }
+    }
+}

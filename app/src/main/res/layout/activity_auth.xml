@@ -1,0 +1,243 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_login_gradient">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="K&#9824;"
+        android:textColor="#1FD4AF37"
+        android:textSize="260sp"
+        android:textStyle="bold"
+        android:rotation="-18"
+        android:fontFamily="serif"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="-40dp"
+        android:text="K&#9829;"
+        android:textColor="#14D4AF37"
+        android:textSize="140sp"
+        android:textStyle="bold"
+        android:rotation="14"
+        android:fontFamily="serif"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|start"
+        android:layout_marginBottom="80dp"
+        android:layout_marginStart="-30dp"
+        android:text="K&#9830;"
+        android:textColor="#14D4AF37"
+        android:textSize="140sp"
+        android:textStyle="bold"
+        android:rotation="-10"
+        android:fontFamily="serif"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:text="TUKO KADI"
+            android:textColor="#D4AF37"
+            android:textSize="32sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/loginSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Login"
+                android:textColor="#F4D160"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/loginPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Safaricom Number (07XX XXX XXX)"
+                android:inputType="phone"
+                android:background="@drawable/input_field_bg"
+                android:padding="16dp"
+                android:textColorHint="#8AA88E"
+                android:textColor="#F4E9C9"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/loginPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:background="@drawable/input_field_bg"
+                android:padding="16dp"
+                android:textColorHint="#8AA88E"
+                android:textColor="#F4E9C9"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/loginButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LOGIN"
+                android:textColor="#0B3D20"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:letterSpacing="0.05"
+                android:minHeight="56dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/btn_login_gold"/>
+
+            <Button
+                android:id="@+id/forgotPasswordButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Forgot Password?"
+                android:textColor="#D4AF37"
+                android:background="@android:color/transparent"
+                android:layout_marginTop="6dp"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#D4AF37"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"/>
+
+        <Button
+            android:id="@+id/showRegisterButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="New here? Register"
+            android:textColor="#0B3D20"
+            android:textStyle="bold"
+            android:backgroundTint="#D4AF37"/>
+
+        <LinearLayout
+            android:id="@+id/registerSection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Register"
+                android:textColor="#F4D160"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginBottom="16dp"/>
+
+            <EditText
+                android:id="@+id/registerName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Full Name"
+                android:background="@drawable/input_field_bg"
+                android:padding="16dp"
+                android:textColorHint="#8AA88E"
+                android:textColor="#F4E9C9"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/registerPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Safaricom Number (07XX XXX XXX)"
+                android:inputType="phone"
+                android:background="@drawable/input_field_bg"
+                android:padding="16dp"
+                android:textColorHint="#8AA88E"
+                android:textColor="#F4E9C9"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/registerPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:background="@drawable/input_field_bg"
+                android:padding="16dp"
+                android:textColorHint="#8AA88E"
+                android:textColor="#F4E9C9"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="12dp"/>
+
+            <EditText
+                android:id="@+id/registerConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:background="@drawable/input_field_bg"
+                android:padding="16dp"
+                android:textColorHint="#8AA88E"
+                android:textColor="#F4E9C9"
+                android:textCursorDrawable="@null"
+                android:layout_marginBottom="16dp"/>
+
+            <Button
+                android:id="@+id/registerButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="CREATE ACCOUNT"
+                android:textColor="#0B3D20"
+                android:textStyle="bold"
+                android:textSize="17sp"
+                android:letterSpacing="0.05"
+                android:minHeight="56dp"
+                android:background="@drawable/btn_login_gold"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/contactSupportText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Support"
+            android:textColor="#D4AF37"
+            android:textSize="14sp"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="20dp"
+            android:padding="8dp"/>
+
+    </LinearLayout>
+</ScrollView>
+
+</FrameLayout>
