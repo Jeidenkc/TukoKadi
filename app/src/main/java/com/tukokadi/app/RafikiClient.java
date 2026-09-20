@@ -16,7 +16,7 @@ public class RafikiClient {
     }
 
     // Server running in Termux on THIS phone. Later this becomes an online address.
-    private static final String SERVER_URL = "ws://127.0.0.1:3001";
+    private static final String SERVER_URL = "wss://rafiki-server-cir7.onrender.com";
 
     private static final OkHttpClient http = new OkHttpClient();
     private static volatile WebSocket socket;
