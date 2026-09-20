@@ -57,7 +57,7 @@ public class CardView extends View {
         centerPaint.setTextAlign(Paint.Align.CENTER);
 
         pipPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        pipPaint.setTypeface(Typeface.DEFAULT_BOLD);
+        pipPaint.setTypeface(Typeface.DEFAULT);
         pipPaint.setTextAlign(Paint.Align.CENTER);
 
         backFillPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -161,7 +161,7 @@ public class CardView extends View {
         canvas.drawRoundRect(rect, 16, 16, bgPaint);
         canvas.drawRoundRect(rect, 16, 16, borderPaint);
 
-        int color = red ? Color.RED : Color.BLACK;
+        int color = red ? Color.parseColor("#B3122E") : Color.parseColor("#1A1A1A");
         cornerPaint.setColor(color);
         centerPaint.setColor(color);
         pipPaint.setColor(color);
