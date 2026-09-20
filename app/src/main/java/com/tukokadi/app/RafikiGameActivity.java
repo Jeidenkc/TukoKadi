@@ -48,6 +48,7 @@ public class RafikiGameActivity extends Activity {
     private String myName;
     private boolean myTurn = false;
     private boolean gameOverShown = false;
+    private LinearLayout topMidSlot;
     private CountDownTimer myTurnTimer;
     private int cardW, cardH;
     private int pileCardW, pileCardH;
@@ -108,6 +109,10 @@ public class RafikiGameActivity extends Activity {
         topRightSlot.setGravity(Gravity.CENTER);
 
         topRow.addView(topLeftSlot, new LinearLayout.LayoutParams(0, WRAP, 1f));
+        topMidSlot = new LinearLayout(this);
+        topMidSlot.setOrientation(LinearLayout.VERTICAL);
+        topMidSlot.setGravity(Gravity.CENTER);
+        topRow.addView(topMidSlot, new LinearLayout.LayoutParams(0, WRAP, 1f));
         topRow.addView(topRightSlot, new LinearLayout.LayoutParams(0, WRAP, 1f));
         root.addView(topRow, new LinearLayout.LayoutParams(MATCH, WRAP));
 
@@ -164,6 +169,7 @@ public class RafikiGameActivity extends Activity {
         bottomRow.setGravity(Gravity.CENTER_VERTICAL);
         bottomRow.setPadding(0, dp(2), 0, dp(2));
         bottomRow.addView(youColumn, new LinearLayout.LayoutParams(0, WRAP, 1f));
+        bottomRightSlot.setVisibility(View.GONE);
         bottomRow.addView(bottomRightSlot, new LinearLayout.LayoutParams(0, WRAP, 1f));
         root.addView(bottomRow, new LinearLayout.LayoutParams(MATCH, WRAP));
 
@@ -196,8 +202,8 @@ public class RafikiGameActivity extends Activity {
     }
 
     private void updateCardSizesForPlayerCount(int totalPlayers) {
-        float baseHandW = 92, baseHandH = 132;
-        float basePileW = 84, basePileH = 120;
+        float baseHandW = 108, baseHandH = 155;
+        float basePileW = 104, basePileH = 149;
         int extra = Math.max(0, totalPlayers - 2);
         float shrink = 1f - (extra * 0.08f);
         shrink = Math.max(shrink, 0.80f);
@@ -361,8 +367,8 @@ public class RafikiGameActivity extends Activity {
         fanContainerLp.topMargin = dp(4);
 
         int shown = Math.max(1, count);
-        int oppAvail = getResources().getDisplayMetrics().widthPixels / Math.max(1, totalOpponents) - dp(24);
-        int oppStep = shown > 1 ? Math.max(dp(4), Math.min((int) (cardW * 0.20f), (oppAvail - cardW) / (shown - 1))) : 0;
+        int oppAvail = (getResources().getDisplayMetrics().widthPixels - dp(16)) / 3 - dp(4);
+        int oppStep = shown > 1 ? Math.max(dp(1), Math.min((int) (cardW * 0.20f), (oppAvail - cardW) / (shown - 1))) : 0;
         for (int c = 0; c < shown; c++) {
             CardView back = new CardView(this);
             back.setFaceDown(true);
@@ -385,6 +391,7 @@ public class RafikiGameActivity extends Activity {
     }
 
     private void render(JSONObject m) throws Exception {
+        RafikiGroupPicker.dismiss();
         final String you = m.getString("you");
         myName = you;
         String turn = m.getString("turn");
@@ -417,23 +424,24 @@ public class RafikiGameActivity extends Activity {
 
         topLeftSlot.removeAllViews();
         topRightSlot.removeAllViews();
+        topMidSlot.removeAllViews();
         bottomRightSlot.removeAllViews();
         int n = others.length();
 
         if (n >= 1) {
             JSONObject o0 = others.getJSONObject(0);
             boolean t0 = winner == null && o0.getString("name").equals(turn);
-            topLeftSlot.addView(buildOpponentBox(o0, t0, n));
+            (n == 1 ? topMidSlot : topLeftSlot).addView(buildOpponentBox(o0, t0, n));
         }
         if (n >= 2) {
             JSONObject o1 = others.getJSONObject(1);
             boolean t1 = winner == null && o1.getString("name").equals(turn);
-            topRightSlot.addView(buildOpponentBox(o1, t1, n));
+            (n == 2 ? topRightSlot : topMidSlot).addView(buildOpponentBox(o1, t1, n));
         }
         if (n >= 3) {
             JSONObject o2 = others.getJSONObject(2);
             boolean t2 = winner == null && o2.getString("name").equals(turn);
-            bottomRightSlot.addView(buildOpponentBox(o2, t2, n));
+            topRightSlot.addView(buildOpponentBox(o2, t2, n));
         }
 
         pileRow.removeAllViews();
@@ -490,13 +498,42 @@ public class RafikiGameActivity extends Activity {
         deckLp.setMargins(dp(12), 0, dp(12), 0);
         drawColumn.addView(deckStack, deckLp);
 
+        android.view.View deckSpacer = new android.view.View(this);
+        drawColumn.addView(deckSpacer, new LinearLayout.LayoutParams(1, dp(46)));
         pileRow.addView(drawColumn);
 
         CardView topCardView = new CardView(this);
         topCardView.setCard(rank(top), symbol(suit(top)), isRed(top));
         LinearLayout.LayoutParams tlp = new LinearLayout.LayoutParams(pileCardW, pileCardH);
         tlp.setMargins(dp(8), 0, dp(8), 0);
-        pileRow.addView(topCardView, tlp);
+        LinearLayout topColumn = new LinearLayout(this);
+        topColumn.setOrientation(LinearLayout.VERTICAL);
+        topColumn.setGravity(Gravity.CENTER_HORIZONTAL);
+        topColumn.addView(topCardView, new LinearLayout.LayoutParams(pileCardW, pileCardH));
+        TextView suitBadge = new TextView(this);
+        suitBadge.setGravity(Gravity.CENTER);
+        suitBadge.setIncludeFontPadding(false);
+        LinearLayout.LayoutParams badgeLp = new LinearLayout.LayoutParams(dp(40), dp(40));
+        badgeLp.topMargin = dp(6);
+        if (declaredSuit != null) {
+            suitBadge.setText(symbol(declaredSuit));
+            suitBadge.setTextSize(24);
+            suitBadge.setTypeface(null, Typeface.BOLD);
+            suitBadge.setTextColor((declaredSuit.equals("H") || declaredSuit.equals("D"))
+                    ? Color.parseColor("#E53935") : Color.BLACK);
+            android.graphics.drawable.GradientDrawable badgeBg =
+                    new android.graphics.drawable.GradientDrawable();
+            badgeBg.setShape(android.graphics.drawable.GradientDrawable.OVAL);
+            badgeBg.setColor(Color.WHITE);
+            badgeBg.setStroke(dp(2), Color.parseColor("#FFD54A"));
+            suitBadge.setBackground(badgeBg);
+        } else {
+            suitBadge.setVisibility(android.view.View.INVISIBLE);
+        }
+        topColumn.addView(suitBadge, badgeLp);
+        LinearLayout.LayoutParams topColLp = new LinearLayout.LayoutParams(WRAP, WRAP);
+        topColLp.setMargins(dp(8), 0, dp(8), 0);
+        pileRow.addView(topColumn, topColLp);
 
         if (winner != null) {
             statusText.setText("Game over");
@@ -504,7 +541,7 @@ public class RafikiGameActivity extends Activity {
             if (pendingPenalty > 0) {
                 statusText.setText("Defend with " + pendingPenaltyRank + " or ACE, or draw " + pendingPenalty);
             } else if (declaredSuit != null) {
-                statusText.setText("Your turn: suit is " + symbol(declaredSuit) + " " + declaredSuit);
+                statusText.setText("Your turn: play a matching card or tap DRAW");
             } else {
                 statusText.setText("Your turn: play a matching card or tap DRAW");
             }
@@ -553,6 +590,7 @@ public class RafikiGameActivity extends Activity {
     }
 
     private void onCardTapped(String card, View sourceView, List<String> handCards) {
+        if (RafikiGroupPicker.handleTap(card)) return;
         if (!myTurn) {
             playWrongSound(sourceView);
             toast("Not your turn");
@@ -571,7 +609,7 @@ public class RafikiGameActivity extends Activity {
             return;
         }
 
-        if (r.equals("A") || r.equals("J") || r.equals("K")) {
+        if (r.equals("A") || r.equals("J")) {
             playCorrectSound();
             sendMsg("play", card, null);
             return;
@@ -586,54 +624,30 @@ public class RafikiGameActivity extends Activity {
             playCorrectSound();
             sendMsg("play", card, null);
         } else {
-            promptForGroupPlay(card, sameRankOthers);
+            promptForGroupPlay(card, sameRankOthers, handCards);
         }
     }
 
-    private void promptForGroupPlay(String firstCard, List<String> others) {
+    private void promptForGroupPlay(String firstCard, List<String> others, List<String> handCards) {
         cancelMyTurnTimer();
-        String[] labels = new String[others.size()];
-        boolean[] checked = new boolean[others.size()];
-        for (int i = 0; i < others.size(); i++) {
-            labels[i] = rank(others.get(i)) + symbol(suit(others.get(i)));
-        }
-
-        new AlertDialog.Builder(this)
-                .setTitle("You have more " + rank(firstCard) + "s \u2014 play together?")
-                .setMultiChoiceItems(labels, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
-                .setPositiveButton("Play Selected", (dialog, which) -> {
-                    List<String> group = new ArrayList<>();
-                    group.add(firstCard);
-                    for (int i = 0; i < others.size(); i++) {
-                        if (checked[i]) group.add(others.get(i));
-                    }
-                    playCorrectSound();
-                    if (group.size() > 1) {
-                        sendMsgGroup(group);
-                    } else {
-                        sendMsg("play", firstCard, null);
-                    }
-                })
-                .setNegativeButton("Just This One", (dialog, which) -> {
-                    playCorrectSound();
-                    sendMsg("play", firstCard, null);
-                })
-                .setCancelable(false)
-                .show();
+        RafikiGroupPicker.start(this, handRow, handCards, firstCard, others, group -> {
+            playCorrectSound();
+            if (group.size() > 1) {
+                sendMsgGroup(group);
+            } else {
+                sendMsg("play", group.get(0), null);
+            }
+        });
     }
 
     private void promptForSuit(String aceCard) {
         cancelMyTurnTimer();
         String[] suitCodes = {"H", "D", "C", "S"};
         String[] suitLabels = {"\u2665 HEARTS", "\u2666 DIAMONDS", "\u2663 CLUBS", "\u2660 SPADES"};
-        new AlertDialog.Builder(this)
-                .setTitle("Choose next suit")
-                .setItems(suitLabels, (dialog, which) -> {
+        SuitPicker.show(RafikiGameActivity.this, code -> {
                     playCorrectSound();
-                    sendMsg("play", aceCard, suitCodes[which]);
-                })
-                .setCancelable(false)
-                .show();
+                    sendMsg("play", aceCard, code);
+                });
     }
 
     // ---------- card helpers ----------
@@ -712,6 +726,7 @@ public class RafikiGameActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        RafikiGroupPicker.dismiss();
         cancelMyTurnTimer();
         soundHandler.removeCallbacksAndMessages(null);
         if (toneGen != null) {
