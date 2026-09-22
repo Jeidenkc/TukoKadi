@@ -60,6 +60,7 @@ public class RafikiActivity extends Activity {
         Button btnCreate = findViewById(R.id.btnCreate);
         Button btnJoin = findViewById(R.id.btnJoin);
         Button btnLeave = findViewById(R.id.btnLeave);
+        Button btnAddBot = findViewById(R.id.btnAddBot);
 
         btnCreate.setOnClickListener(v -> {
             String name = nameInput.getText().toString().trim();
@@ -92,6 +93,14 @@ public class RafikiActivity extends Activity {
         });
 
         btnLeave.setOnClickListener(v -> leaveRoom());
+
+        btnAddBot.setOnClickListener(v -> {
+            try {
+                JSONObject msg = new JSONObject();
+                msg.put("type", "addBot");
+                RafikiClient.send(msg);
+            } catch (Exception e) { toast("Something went wrong"); }
+        });
     }
 
     private void handle(JSONObject m) {

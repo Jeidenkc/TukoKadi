@@ -67,7 +67,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginTop="30dp">
+            android:layout_marginTop="18dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -89,7 +89,7 @@
                 android:textColorHint="#8AA88E"
                 android:textColor="#F4E9C9"
                 android:textCursorDrawable="@null"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="8dp"/>
 
             <EditText
                 android:id="@+id/loginPassword"
@@ -111,9 +111,9 @@
                 android:text="LOGIN"
                 android:textColor="#0B3D20"
                 android:textStyle="bold"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:letterSpacing="0.05"
-                android:minHeight="56dp"
+                android:minHeight="46dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/btn_login_gold"/>
 
@@ -132,15 +132,15 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#D4AF37"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="12dp"/>
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"/>
 
         <Button
             android:id="@+id/showRegisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="New here? Register"
-            android:textColor="#0B3D20"
+            android:textColor="#D4AF37"
             android:textStyle="bold"
             android:backgroundTint="#D4AF37"/>
 
@@ -150,7 +150,7 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:visibility="gone"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="14dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -171,7 +171,7 @@
                 android:textColorHint="#8AA88E"
                 android:textColor="#F4E9C9"
                 android:textCursorDrawable="@null"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="8dp"/>
 
             <EditText
                 android:id="@+id/registerPhone"
@@ -184,7 +184,7 @@
                 android:textColorHint="#8AA88E"
                 android:textColor="#F4E9C9"
                 android:textCursorDrawable="@null"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="8dp"/>
 
             <EditText
                 android:id="@+id/registerPassword"
@@ -197,7 +197,7 @@
                 android:textColorHint="#8AA88E"
                 android:textColor="#F4E9C9"
                 android:textCursorDrawable="@null"
-                android:layout_marginBottom="12dp"/>
+                android:layout_marginBottom="8dp"/>
 
             <EditText
                 android:id="@+id/registerConfirmPassword"
@@ -219,9 +219,9 @@
                 android:text="CREATE ACCOUNT"
                 android:textColor="#0B3D20"
                 android:textStyle="bold"
-                android:textSize="17sp"
+                android:textSize="15sp"
                 android:letterSpacing="0.05"
-                android:minHeight="56dp"
+                android:minHeight="46dp"
                 android:background="@drawable/btn_login_gold"/>
 
         </LinearLayout>
@@ -233,8 +233,8 @@
             android:text="Contact Support"
             android:textColor="#D4AF37"
             android:textSize="14sp"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="18dp"
+            android:layout_marginBottom="12dp"
             android:padding="8dp"/>
 
     </LinearLayout>
