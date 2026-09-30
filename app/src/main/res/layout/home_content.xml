@@ -6,6 +6,14 @@
     android:background="@drawable/bg_home_gradient"
     android:padding="28dp">
 
+    <ImageView
+        android:id="@+id/homeLogo"
+            android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/logo_main"
+        android:layout_marginBottom="16dp"
+        android:contentDescription="TukoKadi logo" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,33 +24,75 @@
         android:letterSpacing="0.05"
         android:layout_marginBottom="40dp"/>
 
-    <Button
-        android:id="@+id/botPlayButton"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:minHeight="52dp"
-        android:text="\u2660  BOT PLAY"
-        android:textColor="#0B3D20"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:paddingStart="24dp"
-        android:paddingEnd="24dp"
-        android:background="@drawable/btn_bot_play"
-        android:elevation="6dp"
-        android:layout_marginBottom="14dp"/>
+        android:orientation="horizontal"
+        android:weightSum="2"
+        android:gravity="center"
+        android:layout_marginBottom="14dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/botPlayButton"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/bot_play_photo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="BOT PLAY"
+                android:textColor="#D4AF37"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/rafikiPlayButton"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:scaleType="centerCrop"
+                android:clickable="true"
+                android:focusable="true"
+                android:src="@drawable/rafiki_play_photo" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="RAFIKI PLAY"
+                android:textColor="#D4AF37"
+                android:textStyle="bold"
+                android:textSize="16sp"
+                android:layout_marginTop="8dp" />
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
-        android:id="@+id/rafikiPlayButton"
+        android:id="@+id/gameHistoryButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="52dp"
-        android:text="\uD83E\uDD1D  RAFIKI PLAY"
+        android:text="Game History"
         android:textColor="#FFFFFF"
         android:textStyle="bold"
         android:textSize="16sp"
         android:paddingStart="24dp"
         android:paddingEnd="24dp"
-        android:background="@drawable/btn_rafiki_play"
+        android:background="@drawable/btn_game_history"
         android:elevation="6dp"
         android:layout_marginBottom="14dp"/>
 

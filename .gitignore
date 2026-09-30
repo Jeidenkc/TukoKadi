@@ -9,3 +9,6 @@ build.log
 build/
 .gradle/
 *.apk
+build/
+*.bak
+*.bak_*

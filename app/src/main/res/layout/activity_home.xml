@@ -15,46 +15,13 @@
 
         <Button
             android:id="@+id/walletButton"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:background="@android:color/transparent"
-            android:text="KIB 0"
+            android:text="\u2630  KIB 0"
             android:textColor="#D4AF37"
             android:textStyle="bold"
             android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/dailyGiftButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="&#127873; Gift"
-            android:textColor="#F4D160"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/menuButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="MENU"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/shareButton"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@android:color/transparent"
-            android:text="SHARE"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
-            android:textSize="18sp" />
     </LinearLayout>
 </FrameLayout>

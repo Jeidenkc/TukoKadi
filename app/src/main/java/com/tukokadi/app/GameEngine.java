@@ -110,10 +110,10 @@ public class GameEngine {
         }
 
         if (declaredSuit != null) {
-            return card.suit == declaredSuit;
+            return card.suit == declaredSuit || card.rank == topCard().rank;
         }
 
-        return card.suit == topCard().suit;
+        return card.suit == topCard().suit || card.rank == topCard().rank;
     }
 
     public boolean playCard(Card card) {

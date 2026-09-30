@@ -614,6 +614,7 @@ public class MainActivity extends Activity {
             statusText.setText((game.winnerName.equals("You") ? "You win the game!" : game.winnerName + " wins the game!") + " Tap New Game to play again.");
             if (!winAnnounced) {
                 winAnnounced = true;
+                GameHistory.recordBotResult(this, game.winnerName.equals("You"));
                 announceWinner(game.winnerName);
             }
         } else {

@@ -12,6 +12,8 @@
         <activity android:name=".AuthActivity" android:exported="false" />
         <activity android:name=".HomeActivity" android:exported="false" />
         <activity android:name=".ComingSoonActivity" android:exported="false" />
+        <activity android:name=".GameHistoryActivity" android:exported="false" />
+        <activity android:name=".BotHistoryActivity" android:exported="false" />
         <activity android:name=".MainActivity" android:exported="false" />
         <activity android:name=".WalletActivity" />
         <activity android:name=".DailyGiftActivity" android:exported="false" />
