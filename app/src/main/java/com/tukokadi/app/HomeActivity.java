@@ -26,7 +26,7 @@ public class HomeActivity extends Activity {
     }
 
 
-    public static final String APK_LINK = "https://github.com/Jeidenkc/TukoKadi/releases/download/v1.3/TukoKadi-v1.3.apk";
+    public static final String APK_LINK = "https://github.com/Jeidenkc/TukoKadi/releases/download/v1.4.1/TukoKadi-v1.4.1.apk";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
