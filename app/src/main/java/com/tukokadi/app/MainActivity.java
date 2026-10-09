@@ -47,7 +47,13 @@ public class MainActivity extends Activity {
     private static final int GOLD = Color.parseColor("#FFD700");
     private static final int CREAM = Color.parseColor("#F5F5F0");
 
+    // Bot Play economy, in NETCOINS. 1 sh = 10 NETCOINS.
+    private static final long ENTRY_FEE = 10;          // charged when a Bot Play game starts
+    private static final long WIN_PAYOUT = 15;         // entry (10) + half-entry bonus (5)
+    private static final long NETCOINS_PER_SH = 10;
+
     private GameEngine game;
+    private int botLevel = 1;
     private TextView statusText;
     private TextView topCardText;
     private TextView declaredSuitText;
@@ -71,6 +77,7 @@ public class MainActivity extends Activity {
     private TextToSpeech tts;
     private boolean ttsReady = false;
     private boolean winAnnounced = false;
+    private boolean winCredited = false;
     private int cardW;
     private int cardH;
     private int screenW;
@@ -81,6 +88,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        botLevel = getIntent().getIntExtra("level", 1);
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
             try {
                 java.io.StringWriter sw = new java.io.StringWriter();
@@ -92,6 +100,11 @@ public class MainActivity extends Activity {
             android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(10);
         });
+
+        if (Wallet.getBalance(this) < ENTRY_FEE) {
+            showInsufficientEntryDialog();
+            return;
+        }
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         int screenH = dm.heightPixels;
@@ -129,6 +142,17 @@ public class MainActivity extends Activity {
         title.setGravity(Gravity.CENTER);
         title.setPadding(24, 36, 24, 36);
         rootLayout.addView(title);
+
+        TextView winAmountLabel = new TextView(this);
+        winAmountLabel.setText("AMOUNT TO WIN: " + WIN_PAYOUT + " NETCOINS  \u00B7  "
+                + formatSh(WIN_PAYOUT) + " sh\n1 sh = " + NETCOINS_PER_SH + " NETCOINS");
+        winAmountLabel.setTextSize(14);
+        winAmountLabel.setTypeface(null, Typeface.BOLD);
+        winAmountLabel.setTextColor(CREAM);
+        winAmountLabel.setBackgroundColor(GREEN_LIGHT);
+        winAmountLabel.setGravity(Gravity.CENTER);
+        winAmountLabel.setPadding(24, 12, 24, 12);
+        rootLayout.addView(winAmountLabel);
 
         LinearLayout botsRow = new LinearLayout(this);
         botsRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -320,7 +344,7 @@ public class MainActivity extends Activity {
         handLabel.setText("You:");
         handLabel.setTextSize(16);
         handLabel.setTypeface(null, Typeface.BOLD);
-        handLabel.setTextColor(GREEN_DARK);
+        handLabel.setTextColor(GOLD);
         youAvatar = new AvatarView(this);
         youAvatar.setPlayer("You", null);
         rootLayout.addView(youAvatar, new LinearLayout.LayoutParams((int) (56 * getResources().getDisplayMetrics().density), (int) (56 * getResources().getDisplayMetrics().density)));
@@ -508,11 +532,32 @@ public class MainActivity extends Activity {
     private void startNewGame() {
         cancelTurnTimer();
         cancelBotTimer();
+        if (!Wallet.deductBalance(this, ENTRY_FEE)) {
+            showInsufficientEntryDialog();
+            return;
+        }
+        winCredited = false;
         game = new GameEngine(Arrays.asList("You", "Bob", "Carol"));
         winAnnounced = false;
         handOrder.clear();
         refresh();
         runNextBotTurnIfNeeded();
+    }
+
+    private String formatSh(long netcoins) {
+        if (netcoins % NETCOINS_PER_SH == 0) return String.valueOf(netcoins / NETCOINS_PER_SH);
+        return String.format(Locale.US, "%.1f", netcoins / (double) NETCOINS_PER_SH);
+    }
+
+    private void showInsufficientEntryDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle("Not enough NETCOINS")
+                .setMessage("Bot Play costs " + ENTRY_FEE + " NETCOINS to enter "
+                        + "(1 sh = " + NETCOINS_PER_SH + " NETCOINS).\n\n"
+                        + "Your balance: " + Wallet.getBalance(this) + " NETCOINS.")
+                .setCancelable(false)
+                .setPositiveButton("OK", (d, w) -> finish())
+                .show();
     }
 
     private void renderPlayerStack(LinearLayout container, String name, int count) {
@@ -615,6 +660,11 @@ public class MainActivity extends Activity {
             if (!winAnnounced) {
                 winAnnounced = true;
                 GameHistory.recordBotResult(this, game.winnerName.equals("You"));
+                if (game.winnerName.equals("You") && !winCredited) {
+                    winCredited = true;
+                    Wallet.addBalance(this, WIN_PAYOUT);
+                    Toast.makeText(this, "You won " + WIN_PAYOUT + " NETCOINS!", Toast.LENGTH_LONG).show();
+                }
                 announceWinner(game.winnerName);
             }
         } else {
@@ -791,7 +841,7 @@ public class MainActivity extends Activity {
             }
         }.start();
 
-        long randomDelay = 1000 + (long) (Math.random() * 3000);
+        long randomDelay = botDelay();
         soundHandler.postDelayed(() -> {
             if (botTimer != null) {
                 botTimer.cancel();
@@ -806,16 +856,56 @@ public class MainActivity extends Activity {
         }, randomDelay);
     }
 
+    private long botDelay() {
+        if (botLevel == 0) return 2500 + (long) (Math.random() * 2500);
+        if (botLevel == 1) return 1000 + (long) (Math.random() * 2000);
+        return 500 + (long) (Math.random() * 1000);
+    }
+
+    private boolean isFinisherRank(Card.Rank r) {
+        return r == Card.Rank.FOUR || r == Card.Rank.FIVE || r == Card.Rank.SIX
+                || r == Card.Rank.SEVEN || r == Card.Rank.NINE || r == Card.Rank.TEN;
+    }
+
+    private Card pickBotCard(Player bot) {
+        java.util.List<Card> options = new java.util.ArrayList<>();
+        for (Card c : bot.hand) {
+            if (game.canPlay(c)) options.add(c);
+        }
+        if (options.isEmpty()) return null;
+        if (botLevel == 0) return options.get(new java.util.Random().nextInt(options.size()));
+        int finishers = 0;
+        for (Card c : bot.hand) {
+            if (isFinisherRank(c.rank)) finishers++;
+        }
+        Card best = options.get(0);
+        int bestScore = Integer.MIN_VALUE;
+        for (Card c : options) {
+            int same = 0;
+            int suitCount = 0;
+            for (Card o : bot.hand) {
+                if (o.rank == c.rank) same++;
+                if (o.suit == c.suit) suitCount++;
+            }
+            int score = same * 3 + suitCount;
+            if (c.rank == Card.Rank.ACE || c.rank == Card.Rank.JACK) score -= 4;
+            if (botLevel >= 2) {
+                String rn = c.rank.name();
+                if (rn.equals("TWO") || rn.equals("THREE")) score += 6;
+                if (isFinisherRank(c.rank) && finishers == 1 && bot.hand.size() > 1) score -= 10;
+            }
+            if (score > bestScore) {
+                bestScore = score;
+                best = c;
+            }
+        }
+        return best;
+    }
+
     private void performBotMove() {
         if (game.gameOver || game.currentPlayerIndex == 0) return;
         Player bot = game.currentPlayer();
-        Card playable = null;
-        for (Card c : bot.hand) {
-            if (game.canPlay(c)) {
-                playable = c;
-                break;
-            }
-        }
+        Card playable = pickBotCard(bot);
         if (playable != null) {
             if (playable.rank == Card.Rank.ACE || playable.rank == Card.Rank.JACK) {
                 Card.Suit declared = (playable.rank == Card.Rank.ACE) ? Card.Suit.HEARTS : null;
@@ -884,7 +974,7 @@ public class MainActivity extends Activity {
             return;
         }
 
-        if (card.rank == Card.Rank.ACE || card.rank == Card.Rank.JACK) {
+        if (card.rank == Card.Rank.ACE) {
             game.playCard(card, null);
             playCorrectSound();
             refresh();

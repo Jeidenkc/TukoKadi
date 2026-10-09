@@ -12,3 +12,8 @@ build/
 build/
 *.bak
 *.bak_*
+local.properties
+build
+balances.json
+server.log
+node_modules

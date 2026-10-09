@@ -4,7 +4,8 @@
     android:orientation="vertical"
     android:gravity="center"
     android:background="@drawable/bg_home_gradient"
-    android:padding="28dp">
+    android:paddingTop="28dp"
+    android:paddingBottom="28dp">
 
     <ImageView
         android:id="@+id/homeLogo"
@@ -15,74 +16,51 @@
         android:contentDescription="TukoKadi logo" />
 
     <TextView
+        android:textColor="#FF8C00"
+        android:fontFamily="serif"
+        android:textStyle="bold"
+        android:textSize="44sp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TUKO KADI"
-        android:textColor="#D4AF37"
-        android:textSize="38sp"
-        android:textStyle="bold"
         android:letterSpacing="0.05"
         android:layout_marginBottom="40dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:gravity="center"
-        android:layout_marginBottom="14dp">
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/botPlayButton"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:scaleType="centerCrop"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/bot_play_photo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="BOT PLAY"
-                android:textColor="#D4AF37"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center">
-            <ImageView
-                android:id="@+id/rafikiPlayButton"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:scaleType="centerCrop"
-                android:clickable="true"
-                android:focusable="true"
-                android:src="@drawable/rafiki_play_photo" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="RAFIKI PLAY"
-                android:textColor="#D4AF37"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
-        </LinearLayout>
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:id="@+id/botPlayButton"
+            android:background="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/bot_play_photo" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp">
+        <ImageView
+            android:id="@+id/rafikiPlayButton"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="centerCrop"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/rafiki_play_photo" />
+    </LinearLayout>
+    
 
     <Button
         android:id="@+id/gameHistoryButton"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="52dp"
@@ -98,6 +76,8 @@
 
     <Button
         android:id="@+id/faqsButton"
+        android:layout_marginLeft="28dp"
+        android:layout_marginRight="28dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="52dp"

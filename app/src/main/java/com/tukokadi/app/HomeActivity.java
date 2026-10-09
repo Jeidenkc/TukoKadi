@@ -31,16 +31,30 @@ public class HomeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        java.io.File crashFile = new java.io.File(getFilesDir(), "crash.txt");
+        final java.io.File crashFile = new java.io.File(getFilesDir(), CrashApp.CRASH_FILE);
         if (crashFile.exists()) {
+            String trace;
             try {
                 byte[] b = new byte[(int) crashFile.length()];
-                new java.io.FileInputStream(crashFile).read(b);
-                new android.app.AlertDialog.Builder(this)
-                    .setTitle("Crash log").setMessage(new String(b))
-                    .setPositiveButton("OK", null).show();
-            } catch (Exception ignored) {}
-            crashFile.delete();
+                java.io.FileInputStream fis = new java.io.FileInputStream(crashFile);
+                fis.read(b);
+                fis.close();
+                trace = new String(b);
+            } catch (Exception e) {
+                trace = "(could not read crash log)";
+            }
+            android.widget.TextView traceView = new android.widget.TextView(this);
+            traceView.setText(trace);
+            traceView.setTextSize(12);
+            int pad = (int) (16 * getResources().getDisplayMetrics().density);
+            traceView.setPadding(pad, pad, pad, pad);
+            android.widget.ScrollView scroll = new android.widget.ScrollView(this);
+            scroll.addView(traceView);
+            new android.app.AlertDialog.Builder(this)
+                .setTitle("Crash log")
+                .setView(scroll)
+                .setPositiveButton("Close", (d, w) -> crashFile.delete())
+                .show();
         }
         setContentView(R.layout.activity_home);
         HomeExtras.setup(this);
@@ -58,22 +72,28 @@ public class HomeActivity extends Activity {
         android.view.View rafikiPlayButton = findViewById(R.id.rafikiPlayButton);
         roundView(botPlayButton, 10);
         roundView(rafikiPlayButton, 10);
-        float fitD = getResources().getDisplayMetrics().density;
-        int fitSw = getResources().getDisplayMetrics().widthPixels;
-        int fitSize = (int) ((fitSw - 56 * fitD) / 2 - 8 * fitD);
-        android.view.View[] fitArr = { botPlayButton, rafikiPlayButton };
-        for (android.view.View fv : fitArr) {
-            android.view.ViewGroup.LayoutParams flp = fv.getLayoutParams();
-            flp.width = fitSize;
-            flp.height = fitSize;
-            fv.setLayoutParams(flp);
-        }
+        final android.widget.ImageView rafikiImg = (android.widget.ImageView) rafikiPlayButton;
+        rafikiImg.post(new Runnable() {
+            @Override
+            public void run() {
+                android.graphics.drawable.Drawable dr = rafikiImg.getDrawable();
+                if (dr == null || rafikiImg.getWidth() == 0) return;
+                float sc = (float) rafikiImg.getWidth() / dr.getIntrinsicWidth();
+                float dy = rafikiImg.getHeight() - dr.getIntrinsicHeight() * sc;
+                rafikiImg.setScaleType(android.widget.ImageView.ScaleType.MATRIX);
+                android.graphics.Matrix mx = new android.graphics.Matrix();
+                mx.setScale(sc, sc);
+                mx.postTranslate(0, Math.min(0f, dy));
+                rafikiImg.setImageMatrix(mx);
+            }
+        });
+        
         android.view.View homeLogoView = findViewById(R.id.homeLogo);
         if (homeLogoView != null) roundView(homeLogoView, 10);
         Button faqsButton = findViewById(R.id.faqsButton);
 
         botPlayButton.setOnClickListener(v ->
-            startActivity(new Intent(HomeActivity.this, MainActivity.class))
+            startActivity(new Intent(HomeActivity.this, BotLevelActivity.class))
         );
 
         rafikiPlayButton.setOnClickListener(v -> startActivity(new Intent(HomeActivity.this, RafikiActivity.class)));

@@ -39,9 +39,12 @@ public class RafikiGameActivity extends Activity {
     private static final int GOLD = 0xFFFFD54A;
     private static final int MATCH = ViewGroup.LayoutParams.MATCH_PARENT;
     private static final int WRAP = ViewGroup.LayoutParams.WRAP_CONTENT;
+    private static final int NETCOINS_PER_SH = 10;
+    private static final int ENTRY_FEE = 10;
 
     private LinearLayout pileRow, handRow;
-    private TextView turnInfo, statusText, timerText;
+    private TextView turnInfo, statusText, timerText, amountToWin;
+    private boolean lowBalanceShown = false;
     private AvatarView youAvatar;
     private LinearLayout topLeftSlot, topRightSlot, bottomRightSlot;
     private final java.util.List<String> handOrder = new java.util.ArrayList<>();
@@ -93,6 +96,16 @@ public class RafikiGameActivity extends Activity {
         root.addView(header);
         turnInfo = header.findViewById(R.id.turnInfo);
         header.findViewById(R.id.btnSettings).setVisibility(View.GONE);
+
+        // AMOUNT TO WIN: the pot the server escrowed for this game.
+        amountToWin = new TextView(this);
+        amountToWin.setTextColor(GOLD);
+        amountToWin.setTextSize(14);
+        amountToWin.setTypeface(null, Typeface.BOLD);
+        amountToWin.setGravity(Gravity.CENTER);
+        amountToWin.setPadding(dp(16), dp(6), dp(16), dp(2));
+        amountToWin.setText("AMOUNT TO WIN: \u2014");
+        root.addView(amountToWin, new LinearLayout.LayoutParams(MATCH, WRAP));
 
         // top row: two corner seats (opponent 1 top-left, opponent 2 top-right)
         LinearLayout topRow = new LinearLayout(this);
@@ -403,6 +416,9 @@ public class RafikiGameActivity extends Activity {
         JSONArray hand = m.getJSONArray("hand");
         JSONArray others = m.getJSONArray("others");
 
+        setAmountToWin(m.optInt("pot", 0));
+        syncBalance(m);
+
         pendingPenalty = m.optInt("pendingPenalty", 0);
         pendingPenaltyRank = m.isNull("pendingPenaltyRank") ? null : m.optString("pendingPenaltyRank", null);
         declaredSuit = m.isNull("declaredSuit") ? null : m.optString("declaredSuit", null);
@@ -589,6 +605,31 @@ public class RafikiGameActivity extends Activity {
         }
     }
 
+    // AMOUNT TO WIN shows the server's pot, in NETCOINS and sh (1 sh = 10 NETCOINS).
+    private void setAmountToWin(int pot) {
+        amountToWin.setText("AMOUNT TO WIN: " + pot + " NETCOINS  \u00B7  " + formatSh(pot) + " sh"
+                + "\n1 sh = 10 NETCOINS");
+    }
+
+    private static String formatSh(int netcoins) {
+        if (netcoins % NETCOINS_PER_SH == 0) return String.valueOf(netcoins / NETCOINS_PER_SH);
+        return String.format(java.util.Locale.US, "%.1f", netcoins / (double) NETCOINS_PER_SH);
+    }
+
+    // The server owns the balance; mirror it into the local Wallet so the home screen
+    // shows the post-entry (and post-payout) amount. The app never sends a balance.
+    private void syncBalance(JSONObject m) {
+        if (!m.has("balance") || m.isNull("balance")) return;
+        int bal = m.optInt("balance", -1);
+        if (bal < 0) return;
+        Wallet.setBalance(this, bal);
+        if (bal < ENTRY_FEE && !lowBalanceShown) {
+            lowBalanceShown = true;
+            toast("Server balance is " + bal + " NETCOINS \u2014 under the " + ENTRY_FEE
+                    + " NETCOIN entry. Top up to play again.");
+        }
+    }
+
     private void onCardTapped(String card, View sourceView, List<String> handCards) {
         if (RafikiGroupPicker.handleTap(card)) return;
         if (!myTurn) {
@@ -609,7 +650,7 @@ public class RafikiGameActivity extends Activity {
             return;
         }
 
-        if (r.equals("A") || r.equals("J")) {
+        if (r.equals("A")) {
             playCorrectSound();
             sendMsg("play", card, null);
             return;

@@ -11,7 +11,7 @@ import java.net.URL;
 import org.json.JSONObject;
 
 public class Api {
-    public static final String BASE = "http://127.0.0.1:3000";
+    public static final String BASE = "https://kib-server.onrender.com";
 
     public interface Callback {
         void done(boolean ok, JSONObject json, String error);
@@ -24,6 +24,10 @@ public class Api {
     public static void saveSession(Context c, String token, String phone) {
         c.getSharedPreferences("tuko_session", Context.MODE_PRIVATE).edit()
             .putString("token", token).putString("phone", phone).apply();
+    }
+
+    public static void saveName(Context c, String name) {
+        c.getSharedPreferences("tuko_session", Context.MODE_PRIVATE).edit().putString("name", name == null ? "" : name).apply();
     }
 
     public static void clearSession(Context c) {

@@ -27,6 +27,7 @@ public class AuthActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if ("dev-local-token".equals(Api.token(this))) Api.clearSession(this);
         setContentView(R.layout.activity_auth);
 
         prefs = getSharedPreferences("tuko_kadi_users", MODE_PRIVATE);
@@ -67,38 +68,32 @@ public class AuthActivity extends Activity {
     }
 
     private String normalizePhone(String rawPhone) {
-        String digitsOnly = rawPhone.replaceAll("\\s+", "");
-        if (digitsOnly.startsWith("+254")) {
-            digitsOnly = "0" + digitsOnly.substring(4);
-        } else if (digitsOnly.startsWith("254")) {
-            digitsOnly = "0" + digitsOnly.substring(3);
-        }
-        return digitsOnly;
+        String v = rawPhone == null ? "" : rawPhone.trim();
+        if (v.contains("@")) return v.toLowerCase(java.util.Locale.US).replaceAll("\\s+", "");
+        String digits = v.replaceAll("[^0-9+]", "");
+        if (digits.startsWith("+")) return "+" + digits.substring(1).replace("+", "");
+        return digits.replace("+", "");
     }
 
-    private boolean isSafaricomNumber(String phone) {
-        return SAFARICOM_PATTERN.matcher(phone).matches();
+    private boolean isSafaricomNumber(String id) {
+        if (id == null) return false;
+        if (id.contains("@")) return id.matches("^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$");
+        return id.matches("^\\+?[0-9]{9,15}$");
     }
 
     private void serverLogin() {
         final String phone = normalizePhone(loginPhone.getText().toString().trim());
         String password = loginPassword.getText().toString();
         if (phone.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Enter phone number and password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter mobile number or email and password", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!isSafaricomNumber(phone)) {
-            Toast.makeText(this, "Enter a valid Safaricom number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a valid mobile number or email", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // TEMP BYPASS: server not reachable yet - skip network call and log in locally.
-        Api.saveSession(this, "dev-local-token", phone);
-        Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
-        startActivity(new Intent(this, HomeActivity.class));
-        finish();
-
-        /*
+        
         try {
             org.json.JSONObject body = new org.json.JSONObject();
             body.put("phone", phone);
@@ -109,6 +104,7 @@ public class AuthActivity extends Activity {
                     return;
                 }
                 Api.saveSession(this, json.optString("token"), phone);
+            Api.saveName(this, json.optString("name"));
                 Toast.makeText(this, "Welcome back!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(this, HomeActivity.class));
                 finish();
@@ -116,7 +112,7 @@ public class AuthActivity extends Activity {
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show();
         }
-        */
+        
     }
 
     private void serverRegister() {
@@ -129,7 +125,7 @@ public class AuthActivity extends Activity {
             return;
         }
         if (!isSafaricomNumber(phone)) {
-            Toast.makeText(this, "Only Safaricom numbers are supported", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a valid mobile number or email", Toast.LENGTH_SHORT).show();
             return;
         }
         if (password.length() < 6) {
@@ -168,11 +164,11 @@ public class AuthActivity extends Activity {
         String password = loginPassword.getText().toString();
 
         if (phone.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Enter phone number and password", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter mobile number or email and password", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!isSafaricomNumber(phone)) {
-            Toast.makeText(this, "Enter a valid Safaricom number", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a valid mobile number or email", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -202,7 +198,7 @@ public class AuthActivity extends Activity {
             return;
         }
         if (!isSafaricomNumber(phone)) {
-            Toast.makeText(this, "Only Safaricom numbers are supported", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Enter a valid mobile number or email", Toast.LENGTH_SHORT).show();
             return;
         }
         if (!password.equals(confirmPassword)) {

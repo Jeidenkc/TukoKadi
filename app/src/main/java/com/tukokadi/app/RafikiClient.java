@@ -23,14 +23,27 @@ public class RafikiClient {
     private static volatile WebSocketListener activeListener;
     private static volatile Listener listener;
     private static volatile JSONObject lastGame;
+    private static volatile int lastBalance = -1;
+    private static volatile String token;
 
     public static void setListener(Listener l) { listener = l; }
 
     public static JSONObject getLastGame() { return lastGame; }
 
+    // Latest NETCOINS balance reported by the server, or -1 if it has not said yet.
+    public static int getLastBalance() { return lastBalance; }
+
+    // The player's auth token, put on every connect so the server can look up the
+    // server-side balance. The app never sends a balance.
+    public static void setToken(String t) { token = t; }
+
     public static void connect(final JSONObject first, Listener l) {
         close();
         listener = l;
+        String t = token;
+        try {
+            if (t != null && !t.isEmpty() && !first.has("token")) first.put("token", t);
+        } catch (Exception ignored) { }
         Request req = new Request.Builder().url(SERVER_URL).build();
         WebSocketListener wl = new WebSocketListener() {
             @Override public void onOpen(WebSocket ws, Response r) {
@@ -41,6 +54,9 @@ public class RafikiClient {
                 try {
                     JSONObject m = new JSONObject(text);
                     if ("game".equals(m.optString("type"))) lastGame = m;
+                    if (m.has("balance") && !m.isNull("balance")) {
+                        lastBalance = m.optInt("balance", lastBalance);
+                    }
                     Listener cur = listener;
                     if (cur != null) cur.onMessage(m);
                 } catch (Exception ignored) { }
@@ -65,6 +81,7 @@ public class RafikiClient {
         WebSocket s = socket;
         socket = null;
         lastGame = null;
+        lastBalance = -1;
         if (s != null) s.close(1000, null);
     }
 }

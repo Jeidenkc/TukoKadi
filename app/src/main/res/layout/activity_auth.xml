@@ -53,14 +53,25 @@
         android:gravity="center_horizontal"
         android:padding="24dp">
 
-        <TextView
+        <ImageView
+        android:id="@+id/authLogo"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo_main"
+        android:contentDescription="TukoKadi logo" />
+
+    <TextView
+        android:textColor="#FF8C00"
+        android:fontFamily="serif"
+        android:textStyle="bold"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="40dp"
             android:text="TUKO KADI"
-            android:textColor="#D4AF37"
-            android:textSize="32sp"
-            android:textStyle="bold"/>
+            android:textSize="32sp"/>
 
         <LinearLayout
             android:id="@+id/loginSection"
@@ -70,6 +81,7 @@
             android:layout_marginTop="18dp">
 
             <TextView
+        android:fontFamily="sans-serif-medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Login"
@@ -79,11 +91,12 @@
                 android:layout_marginBottom="16dp"/>
 
             <EditText
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/loginPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Safaricom Number (07XX XXX XXX)"
-                android:inputType="phone"
+                android:hint="Mobile number or email"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
                 android:textColorHint="#8AA88E"
@@ -92,6 +105,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <EditText
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/loginPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,6 +119,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <Button
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/loginButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -118,6 +133,7 @@
                 android:background="@drawable/btn_login_gold"/>
 
             <Button
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/forgotPasswordButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -136,12 +152,13 @@
             android:layout_marginBottom="8dp"/>
 
         <Button
+        android:text="New here? Register"
+        android:textColor="#0B3D20"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif-medium"
             android:id="@+id/showRegisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="New here? Register"
-            android:textColor="#D4AF37"
-            android:textStyle="bold"
             android:backgroundTint="#D4AF37"/>
 
         <LinearLayout
@@ -153,6 +170,7 @@
             android:layout_marginTop="14dp">
 
             <TextView
+        android:fontFamily="sans-serif-medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register"
@@ -162,6 +180,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <EditText
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/registerName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -174,11 +193,12 @@
                 android:layout_marginBottom="8dp"/>
 
             <EditText
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/registerPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Safaricom Number (07XX XXX XXX)"
-                android:inputType="phone"
+                android:hint="Mobile number or email"
+                android:inputType="textEmailAddress"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
                 android:textColorHint="#8AA88E"
@@ -187,6 +207,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <EditText
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/registerPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -200,6 +221,7 @@
                 android:layout_marginBottom="8dp"/>
 
             <EditText
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/registerConfirmPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -213,6 +235,7 @@
                 android:layout_marginBottom="16dp"/>
 
             <Button
+        android:fontFamily="sans-serif-medium"
                 android:id="@+id/registerButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -227,6 +250,7 @@
         </LinearLayout>
 
         <TextView
+        android:fontFamily="sans-serif-medium"
             android:id="@+id/contactSupportText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

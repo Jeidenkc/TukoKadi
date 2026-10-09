@@ -2,7 +2,7 @@
 <manifest xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <application android:usesCleartextTraffic="true" android:label="TUKO KADI" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
+    <application android:name=".CrashApp" android:usesCleartextTraffic="true" android:label="TUKO KADI" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round">
         <activity android:name=".SplashActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -11,6 +11,7 @@
         </activity>
         <activity android:name=".AuthActivity" android:exported="false" />
         <activity android:name=".HomeActivity" android:exported="false" />
+        <activity android:name=".BotLevelActivity" android:exported="false" />
         <activity android:name=".ComingSoonActivity" android:exported="false" />
         <activity android:name=".GameHistoryActivity" android:exported="false" />
         <activity android:name=".BotHistoryActivity" android:exported="false" />

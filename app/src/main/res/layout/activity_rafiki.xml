@@ -90,6 +90,16 @@
             android:textColor="#0B3D1E"
             android:textStyle="bold"/>
 
+        <Button
+            android:id="@+id/btnQuickMatch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/btn_gold"
+            android:text="QUICK MATCH"
+            android:textColor="#0B3D1E"
+            android:textStyle="bold"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -188,6 +198,36 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/btn_gold"
             android:text="LEAVE ROOM"
+            android:textColor="#0B3D1E"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+    <!-- SEARCHING: quick match in progress -->
+    <LinearLayout
+        android:id="@+id/searchingPanel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/searchingText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="Searching for a match…"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/btnCancelSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:background="@drawable/btn_gold"
+            android:text="CANCEL"
             android:textColor="#0B3D1E"
             android:textStyle="bold"/>
     </LinearLayout>

@@ -1,6 +1,7 @@
 package com.tukokadi.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,9 +18,10 @@ public class RafikiActivity extends Activity {
 
     private EditText nameInput, codeInput;
     private RadioGroup sizeGroup;
-    private View menuPanel, lobbyPanel;
-    private TextView roomCode, statusText, playersText;
+    private View menuPanel, lobbyPanel, searchingPanel;
+    private TextView roomCode, statusText, playersText, searchingText;
     private boolean handedOff = false;
+    private boolean searching = false;
 
     private final RafikiClient.Listener listener = new RafikiClient.Listener() {
         @Override public void onMessage(final JSONObject m) {
@@ -38,10 +40,14 @@ public class RafikiActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rafiki);
 
+        // Auth token identifies us to the server; balances are looked up server-side.
+        RafikiClient.setToken(Api.token(this));
+
         nameInput = findViewById(R.id.nameInput);
+        String sessName = getSharedPreferences("tuko_session", MODE_PRIVATE).getString("name", "");
 
         String __phone = getSharedPreferences("tuko_session", MODE_PRIVATE).getString("phone", null);
-        String __savedName = __phone != null
+        String __savedName = !sessName.isEmpty() ? sessName : __phone != null
                 ? getSharedPreferences("tuko_kadi_users", MODE_PRIVATE).getString(__phone + "_name", "")
                 : "";
         if (!__savedName.isEmpty()) {
@@ -53,14 +59,18 @@ public class RafikiActivity extends Activity {
         sizeGroup = findViewById(R.id.sizeGroup);
         menuPanel = findViewById(R.id.menuPanel);
         lobbyPanel = findViewById(R.id.lobbyPanel);
+        searchingPanel = findViewById(R.id.searchingPanel);
         roomCode = findViewById(R.id.roomCode);
         statusText = findViewById(R.id.statusText);
         playersText = findViewById(R.id.playersText);
+        searchingText = findViewById(R.id.searchingText);
 
         Button btnCreate = findViewById(R.id.btnCreate);
         Button btnJoin = findViewById(R.id.btnJoin);
         Button btnLeave = findViewById(R.id.btnLeave);
         Button btnAddBot = findViewById(R.id.btnAddBot);
+        Button btnQuickMatch = findViewById(R.id.btnQuickMatch);
+        Button btnCancelSearch = findViewById(R.id.btnCancelSearch);
 
         btnCreate.setOnClickListener(v -> {
             String name = nameInput.getText().toString().trim();
@@ -101,6 +111,38 @@ public class RafikiActivity extends Activity {
                 RafikiClient.send(msg);
             } catch (Exception e) { toast("Something went wrong"); }
         });
+
+        btnQuickMatch.setOnClickListener(v -> {
+            String name = nameInput.getText().toString().trim();
+            if (name.isEmpty()) { toast("Enter your name"); return; }
+            try {
+                JSONObject msg = new JSONObject();
+                msg.put("type", "automatch");
+                msg.put("name", name);
+                RafikiClient.connect(msg, listener);
+                showSearching();
+            } catch (Exception e) { toast("Something went wrong"); }
+        });
+
+        btnCancelSearch.setOnClickListener(v -> cancelSearch());
+    }
+
+    private void showSearching() {
+        searching = true;
+        searchingText.setText("Searching for a match\u2026");
+        menuPanel.setVisibility(View.GONE);
+        lobbyPanel.setVisibility(View.GONE);
+        searchingPanel.setVisibility(View.VISIBLE);
+    }
+
+    private void cancelSearch() {
+        searching = false;
+        try {
+            JSONObject msg = new JSONObject();
+            msg.put("type", "cancelMatch");
+            RafikiClient.send(msg);
+        } catch (Exception ignored) { }
+        showMenu();
     }
 
     private void handle(JSONObject m) {
@@ -110,12 +152,31 @@ public class RafikiActivity extends Activity {
                 case "room":
                     showLobby(m);
                     break;
+                case "matchQueued":
+                    showSearching();
+                    int waiting = m.optInt("waiting", 0);
+                    searchingText.setText(waiting > 0
+                            ? "Searching for a match\u2026\n(" + waiting + " waiting)"
+                            : "Searching for a match\u2026");
+                    break;
+                case "matchTimeout":
+                    showMenu();
+                    new AlertDialog.Builder(this)
+                            .setTitle("No match")
+                            .setMessage("No match found, nothing was charged.")
+                            .setPositiveButton("OK", null)
+                            .show();
+                    break;
+                case "matchCancelled":
+                    showMenu();
+                    break;
                 case "started":
                     handedOff = true;
                     startActivity(new Intent(this, RafikiGameActivity.class));
                     finish();
                     break;
                 case "error":
+                    if (searching) showMenu();
                     toast(m.getString("message"));
                     break;
                 case "left":
@@ -147,7 +208,9 @@ public class RafikiActivity extends Activity {
     }
 
     private void showMenu() {
+        searching = false;
         lobbyPanel.setVisibility(View.GONE);
+        searchingPanel.setVisibility(View.GONE);
         menuPanel.setVisibility(View.VISIBLE);
     }
 
@@ -166,7 +229,8 @@ public class RafikiActivity extends Activity {
 
     @Override
     public void onBackPressed() {
-        if (lobbyPanel.getVisibility() == View.VISIBLE) leaveRoom();
+        if (searchingPanel.getVisibility() == View.VISIBLE) cancelSearch();
+        else if (lobbyPanel.getVisibility() == View.VISIBLE) leaveRoom();
         else super.onBackPressed();
     }
 

@@ -260,9 +260,7 @@ public class GameEngine {
 
         Card.Rank rank = cards.get(0).rank;
 
-        if (rank == Card.Rank.ACE ||
-                rank == Card.Rank.JACK ||
-                rank == Card.Rank.KING) {
+        if (rank == Card.Rank.ACE) {
 
             return false;
         }
@@ -353,8 +351,19 @@ public class GameEngine {
             pendingPenaltyRank = null;
         }
 
-        if (rank == Card.Rank.EIGHT ||
-                rank == Card.Rank.QUEEN) {
+        declaredSuit = null;
+
+        if (rank == Card.Rank.KING) {
+            if (cards.size() % 2 == 1) {
+                direction *= -1;
+                log.append("Direction reversed.\n");
+                advanceTurn();
+            } else {
+                log.append("Kings cancel out. ").append(p.name).append(" plays again.\n");
+            }
+        } else if (rank == Card.Rank.JACK) {
+            resolveJackGroup(Math.min(cards.size(), players.size() - 1));
+        } else if (rank == Card.Rank.EIGHT || rank == Card.Rank.QUEEN) {
 
             log.append(p.name)
                     .append(" gets an extra turn.\n");
@@ -384,10 +393,12 @@ public class GameEngine {
         }
 
         if (simDeclaredSuit != null) {
-            return card.suit == simDeclaredSuit;
+            return card.suit == simDeclaredSuit ||
+                    card.rank == top.rank;
         }
 
-        return card.suit == top.suit;
+        return card.suit == top.suit ||
+                card.rank == top.rank;
     }
 
     private boolean isWinningRank(Card.Rank r) {
@@ -460,7 +471,10 @@ public class GameEngine {
         Card card = drawOneCard();
 
         if (card == null) {
-            log.append("No cards available.\n");
+            log.append("No cards available. ")
+                    .append(p.name)
+                    .append(" passes.\n");
+            advanceTurn();
             return null;
         }
 
@@ -540,6 +554,27 @@ public class GameEngine {
                 .append(" (next player must defend with ")
                 .append(rank)
                 .append(", cancel with ACE, or draw).\n");
+    }
+
+    private void resolveJackGroup(int jumps) {
+        advanceTurn();
+        int remaining = jumps;
+        while (!gameOver && remaining > 0) {
+            Player candidate = currentPlayer();
+            Card escapeJack = findCard(candidate, Card.Rank.JACK);
+            if (escapeJack != null) {
+                candidate.removeCard(escapeJack);
+                discardPile.add(escapeJack);
+                log.append(candidate.name).append(" escapes the jump by playing ").append(escapeJack).append("\n");
+                checkWin(candidate, Card.Rank.JACK);
+                if (gameOver) return;
+                advanceTurn();
+            } else {
+                log.append(candidate.name).append(" is jumped.\n");
+                advanceTurn();
+                remaining--;
+            }
+        }
     }
 
     private void resolveJack() {
