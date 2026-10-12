@@ -28,7 +28,8 @@ public class HomeExtras {
             m.getMenu().add(0, 3, 2, "\uD83D\uDCE4 Share");
             m.getMenu().add(0, 4, 3, "Help");
             m.getMenu().add(0, 5, 4, "Contact Us");
-            m.getMenu().add(0, 6, 5, "Logout");
+            m.getMenu().add(0, 7, 5, "⚙ Settings");
+            m.getMenu().add(0, 6, 6, "Logout");
             m.setOnMenuItemClickListener(item -> {
                 if (item.getItemId() == 1) {
                     a.startActivity(new Intent(a, WalletActivity.class));
@@ -45,6 +46,8 @@ public class HomeExtras {
                     Intent i = new Intent(Intent.ACTION_SENDTO, Uri.parse("mailto:youremail@gmail.com"));
                     i.putExtra(Intent.EXTRA_SUBJECT, "TUKO KADI support");
                     a.startActivity(i);
+                } else if (item.getItemId() == 7) {
+                    a.startActivity(new Intent(a, SettingsActivity.class));
                 } else if (item.getItemId() == 6) {
                     new AlertDialog.Builder(a)
                         .setTitle("Logout")

@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#0B3D20"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center"
+            android:text="⚙ SETTINGS"
+            android:textColor="#FFD54A"
+            android:textSize="26sp"
+            android:textStyle="bold"
+            android:shadowColor="#FFAA00"
+            android:shadowRadius="12"/>
+
+        <Switch
+            android:id="@+id/soundSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/chip_bg"
+            android:padding="16dp"
+            android:text="Sound effects"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"/>
+
+        <Switch
+            android:id="@+id/vibrationSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/chip_bg"
+            android:padding="16dp"
+            android:text="Vibration"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:text="Preferred stake (QUICK MATCH)"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <RadioGroup
+            android:id="@+id/stakeGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/stake100"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="100 NETCOINS  ·  10 sh"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFD54A"/>
+
+            <RadioButton
+                android:id="@+id/stake200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="200 NETCOINS  ·  20 sh"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFD54A"/>
+
+            <RadioButton
+                android:id="@+id/stake500"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="500 NETCOINS  ·  50 sh"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFD54A"/>
+
+            <RadioButton
+                android:id="@+id/stake1000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1000 NETCOINS  ·  100 sh"
+                android:textColor="#FFFFFF"
+                android:buttonTint="#FFD54A"/>
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="1 sh = 10 NETCOINS"
+            android:textColor="#CCFFFFFF"
+            android:textSize="13sp"/>
+
+        <Switch
+            android:id="@+id/autoMatchSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:background="@drawable/chip_bg"
+            android:padding="16dp"
+            android:text="Auto-match"
+            android:textColor="#FFFFFF"
+            android:textSize="17sp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="When on, a quick match is accepted automatically at your preferred stake. When off, you are asked to accept or decline each match."
+            android:textColor="#CCFFFFFF"
+            android:textSize="13sp"/>
+
+        <Button
+            android:id="@+id/backButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="34dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/btn_gold"
+            android:text="BACK"
+            android:textColor="#0B3D1E"
+            android:textStyle="bold"/>
+    </LinearLayout>
+
+</ScrollView>
