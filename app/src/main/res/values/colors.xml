@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Auth theme palette. Dark navy surfaces with a green accent, used by the
+  login / register / reset / onboarding / legal screens.
+  All colours are TukoKadi's own; nothing is borrowed from a reference app.
+-->
+<resources>
+    <!-- Background gradient (top -> bottom) -->
+    <color name="auth_navy_top">#12203A</color>
+    <color name="auth_navy_mid">#0B1526</color>
+    <color name="auth_navy_bottom">#060B15</color>
+
+    <!-- Card / elevated surfaces -->
+    <color name="auth_card">#16243D</color>
+    <color name="auth_card_alt">#1B2B47</color>
+
+    <!-- Inputs -->
+    <color name="auth_input_bg">#121E33</color>
+    <color name="auth_input_stroke">#26374F</color>
+
+    <!-- Text -->
+    <color name="auth_title">#FFFFFF</color>
+    <color name="auth_subtitle">#94A6C0</color>
+    <color name="auth_text">#E9EFF8</color>
+    <color name="auth_hint">#6E7F99</color>
+    <color name="auth_on_accent">#06210F</color>
+    <color name="auth_disabled_text">#8FA6C4</color>
+
+    <!-- Accent green -->
+    <color name="auth_accent">#22C55E</color>
+    <color name="auth_accent_dark">#16A34A</color>
+    <color name="auth_accent_dim">#1C3A2C</color>
+
+    <!-- Teal info banner -->
+    <color name="auth_banner_bg">#0F2E33</color>
+    <color name="auth_banner_stroke">#1FB6AE</color>
+    <color name="auth_banner_text">#7FE7DE</color>
+
+    <!-- Misc -->
+    <color name="auth_divider">#1E2C42</color>
+    <color name="auth_error">#FF6B6B</color>
+    <color name="auth_error_bg">#2A1418</color>
+</resources>

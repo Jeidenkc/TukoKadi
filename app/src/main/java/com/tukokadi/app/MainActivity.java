@@ -414,7 +414,7 @@ public class MainActivity extends Activity {
     }
 
     private void vibrate(long millis) {
-        if (vibrator == null) return;
+        if (vibrator == null || !Prefs.isVibrationEnabled(this)) return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             vibrator.vibrate(VibrationEffect.createOneShot(millis, VibrationEffect.DEFAULT_AMPLITUDE));
         } else {
@@ -452,31 +452,32 @@ public class MainActivity extends Activity {
         soundsLoaded = true;
     }
 
-    private void playWrongSound(View sourceView) {
+    private void playSfx(int soundId, float rate) {
+        if (!Prefs.isSoundEnabled(this)) return;
         ensureSounds();
-        soundPool.play(soundWrong, 1f, 1f, 1, 0, 1f);
+        soundPool.play(soundId, 1f, 1f, 1, 0, rate);
+    }
+
+    private void playWrongSound(View sourceView) {
+        playSfx(soundWrong, 1f);
         vibrate(350);
         shakeView(sourceView);
     }
 
     private void playCorrectSound() {
-        ensureSounds();
-        soundPool.play(soundPlaying, 1f, 1f, 1, 0, 1f);
+        playSfx(soundPlaying, 1f);
     }
 
     private void playDrawSound() {
-        ensureSounds();
-        soundPool.play(soundPlaying, 1f, 1f, 1, 0, 1f);
+        playSfx(soundPlaying, 1f);
     }
 
     private void playGroupSound() {
-        ensureSounds();
-        soundPool.play(soundPlaying, 1f, 1f, 1, 0, 1f);
+        playSfx(soundPlaying, 1f);
     }
 
     private void playGroupAvailableSound() {
-        ensureSounds();
-        soundPool.play(soundTimer, 1f, 1f, 1, 0, 1.35f);
+        playSfx(soundTimer, 1.35f);
     }
 
     private void clearGroupHighlights() {
@@ -494,26 +495,27 @@ public class MainActivity extends Activity {
     }
 
     private void playTickSound(long secondsLeft) {
-        ensureSounds();
         if (secondsLeft == 4) {
-            soundPool.play(soundTimer, 1f, 1f, 1, 0, 1f);
+            playSfx(soundTimer, 1f);
         }
         vibrate(60);
     }
 
     private void playTimeUpSound() {
-        if (toneGen != null) toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 400);
+        if (toneGen != null && Prefs.isSoundEnabled(this)) {
+            toneGen.startTone(ToneGenerator.TONE_CDMA_ABBR_ALERT, 400);
+        }
         vibrate(250);
     }
 
     private void playWinFanfare() {
-        ensureSounds();
-        soundPool.play(soundWin, 1f, 1f, 1, 0, 1f);
-        if (toneGen == null) return;
-        int[] tones = {ToneGenerator.TONE_DTMF_1, ToneGenerator.TONE_DTMF_3, ToneGenerator.TONE_DTMF_5, ToneGenerator.TONE_DTMF_8};
-        for (int i = 0; i < tones.length; i++) {
-            final int t = tones[i];
-            soundHandler.postDelayed(() -> { if (toneGen != null) toneGen.startTone(t, 180); }, i * 180L);
+        playSfx(soundWin, 1f);
+        if (toneGen != null && Prefs.isSoundEnabled(this)) {
+            int[] tones = {ToneGenerator.TONE_DTMF_1, ToneGenerator.TONE_DTMF_3, ToneGenerator.TONE_DTMF_5, ToneGenerator.TONE_DTMF_8};
+            for (int i = 0; i < tones.length; i++) {
+                final int t = tones[i];
+                soundHandler.postDelayed(() -> { if (toneGen != null) toneGen.startTone(t, 180); }, i * 180L);
+            }
         }
         vibrate(150);
     }

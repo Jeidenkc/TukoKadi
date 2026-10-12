@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Dark navy gradient shared by every auth-flow screen. -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:type="linear"
+        android:angle="270"
+        android:startColor="@color/auth_navy_top"
+        android:centerColor="@color/auth_navy_mid"
+        android:endColor="@color/auth_navy_bottom" />
+</shape>

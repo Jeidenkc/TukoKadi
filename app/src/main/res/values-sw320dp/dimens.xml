@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Compact bucket for small phones (smallest width >= 320dp). -->
+<resources>
+    <dimen name="auth_pad_h">16dp</dimen>
+    <dimen name="auth_pad_v">18dp</dimen>
+
+    <dimen name="auth_card_radius">16dp</dimen>
+    <dimen name="auth_card_pad">16dp</dimen>
+
+    <dimen name="auth_field_radius">12dp</dimen>
+    <dimen name="auth_field_height">46dp</dimen>
+    <dimen name="auth_field_pad_h">14dp</dimen>
+    <dimen name="auth_field_text_size">14sp</dimen>
+
+    <dimen name="auth_button_height">48dp</dimen>
+    <dimen name="auth_button_radius">24dp</dimen>
+    <dimen name="auth_button_text_size">15sp</dimen>
+
+    <dimen name="auth_logo_size">70dp</dimen>
+
+    <dimen name="auth_title_size">24sp</dimen>
+    <dimen name="auth_subtitle_size">13sp</dimen>
+    <dimen name="auth_heading_size">19sp</dimen>
+    <dimen name="auth_label_size">12sp</dimen>
+    <dimen name="auth_link_size">13sp</dimen>
+    <dimen name="auth_banner_text_size">12sp</dimen>
+
+    <dimen name="auth_banner_pad">12dp</dimen>
+    <dimen name="auth_back_size">40dp</dimen>
+    <dimen name="auth_back_radius">11dp</dimen>
+    <dimen name="auth_icon_size">20dp</dimen>
+    <dimen name="auth_fab_size">50dp</dimen>
+
+    <dimen name="auth_gap_section">14dp</dimen>
+    <dimen name="auth_gap_field">9dp</dimen>
+    <dimen name="auth_gap_top">10dp</dimen>
+</resources>

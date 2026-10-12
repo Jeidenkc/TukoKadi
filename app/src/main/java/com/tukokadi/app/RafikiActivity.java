@@ -119,6 +119,7 @@ public class RafikiActivity extends Activity {
                 JSONObject msg = new JSONObject();
                 msg.put("type", "automatch");
                 msg.put("name", name);
+                msg.put("stake", Prefs.getPreferredStake(this));
                 RafikiClient.connect(msg, listener);
                 showSearching();
             } catch (Exception e) { toast("Something went wrong"); }
@@ -133,6 +134,42 @@ public class RafikiActivity extends Activity {
         menuPanel.setVisibility(View.GONE);
         lobbyPanel.setVisibility(View.GONE);
         searchingPanel.setVisibility(View.VISIBLE);
+    }
+
+    // The server has paired us and asks both players to accept before any stake is
+    // escrowed. Auto-match accepts straight away; otherwise we ask.
+    private void showMatchFound(JSONObject m) {
+        final String matchId = m.optString("matchId", "");
+        int stake = m.optInt("stake", 0);
+        int fee = m.optInt("fee", 0);
+        int win = m.optInt("winAmount", 0);
+        if (Prefs.isAutoMatch(this)) {
+            searchingText.setText("Match found" + (stake > 0 ? " at " + stake + " NETCOINS" : "")
+                    + "\u2026 accepting");
+            sendMatch("acceptMatch", matchId);
+            return;
+        }
+        new AlertDialog.Builder(this)
+                .setTitle("Match found")
+                .setMessage("Stake: " + stake + " NETCOINS\n"
+                        + "Entry fee: " + fee + " NETCOINS each\n"
+                        + "Winner gets: " + win + " NETCOINS\n\nAccept this match?")
+                .setCancelable(false)
+                .setPositiveButton("Accept", (d, w) -> sendMatch("acceptMatch", matchId))
+                .setNegativeButton("Decline", (d, w) -> {
+                    sendMatch("declineMatch", matchId);
+                    showMenu();
+                })
+                .show();
+    }
+
+    private void sendMatch(String type, String matchId) {
+        try {
+            JSONObject msg = new JSONObject();
+            msg.put("type", type);
+            msg.put("matchId", matchId);
+            RafikiClient.send(msg);
+        } catch (Exception e) { toast("Something went wrong"); }
     }
 
     private void cancelSearch() {
@@ -155,9 +192,23 @@ public class RafikiActivity extends Activity {
                 case "matchQueued":
                     showSearching();
                     int waiting = m.optInt("waiting", 0);
-                    searchingText.setText(waiting > 0
-                            ? "Searching for a match\u2026\n(" + waiting + " waiting)"
-                            : "Searching for a match\u2026");
+                    int queuedStake = m.optInt("stake", 0);
+                    String atStake = queuedStake > 0 ? " at " + queuedStake + " NETCOINS" : "";
+                    searchingText.setText("Searching for a match" + atStake + "\u2026"
+                            + (waiting > 0 ? "\n(" + waiting + " waiting)" : ""));
+                    break;
+                case "matchFound":
+                    showMatchFound(m);
+                    break;
+                case "matchEnded":
+                    if (m.optBoolean("requeued", false)) {
+                        showSearching();
+                        searchingText.setText("Searching for a match\u2026");
+                    } else {
+                        showMenu();
+                        String reason = m.optString("reason", "");
+                        if (!reason.isEmpty()) toast(reason);
+                    }
                     break;
                 case "matchTimeout":
                     showMenu();
