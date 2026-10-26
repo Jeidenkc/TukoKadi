@@ -16,7 +16,7 @@
         android:contentDescription="TukoKadi logo" />
 
     <TextView
-        android:textColor="#FF8C00"
+        android:textColor="#F3EFE6"
         android:fontFamily="serif"
         android:textStyle="bold"
         android:textSize="44sp"
@@ -24,16 +24,19 @@
         android:layout_height="wrap_content"
         android:text="TUKO KADI"
         android:letterSpacing="0.05"
-        android:layout_marginBottom="40dp"/>
+        android:layout_marginBottom="28dp"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="14dp">
         <ImageView
             android:id="@+id/botPlayButton"
-            android:background="#FFFFFF"
+            android:background="@drawable/g_bg_card_white"
+            android:clipToOutline="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="fitCenter"
@@ -45,9 +48,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="14dp">
         <ImageView
             android:id="@+id/rafikiPlayButton"
+            android:background="@drawable/g_bg_card"
+            android:clipToOutline="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:scaleType="centerCrop"
@@ -59,8 +66,8 @@
 
     <Button
         android:id="@+id/gameHistoryButton"
-        android:layout_marginLeft="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="52dp"
@@ -76,13 +83,13 @@
 
     <Button
         android:id="@+id/faqsButton"
-        android:layout_marginLeft="28dp"
-        android:layout_marginRight="28dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="52dp"
         android:text="\? FAQs"
-        android:textColor="#D4AF37"
+        android:textColor="#34D399"
         android:textStyle="bold"
         android:textSize="16sp"
         android:paddingStart="24dp"

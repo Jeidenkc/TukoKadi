@@ -18,19 +18,22 @@ public class GameHistoryActivity extends Activity {
         root.setOrientation(LinearLayout.VERTICAL);
         root.setGravity(Gravity.CENTER);
         root.setPadding(48, 48, 48, 48);
-        root.setBackgroundColor(Color.parseColor("#1B5E20"));
+        root.setBackgroundResource(R.drawable.g_bg_felt);
 
         TextView title = new TextView(this);
         title.setText("GAME HISTORY");
         title.setTextSize(26);
-        title.setTextColor(Color.parseColor("#FFD700"));
+        title.setTextColor(Color.parseColor("#F3EFE6"));
         title.setGravity(Gravity.CENTER);
         title.setPadding(0, 0, 0, 48);
         root.addView(title);
 
         Button botHistoryButton = new Button(this);
         botHistoryButton.setText("Bot Play History");
-        botHistoryButton.setTextColor(Color.WHITE);
+        botHistoryButton.setTextColor(Color.parseColor("#F3EFE6"));
+        botHistoryButton.setAllCaps(false);
+        botHistoryButton.setStateListAnimator(null);
+        botHistoryButton.setBackgroundResource(R.drawable.g_btn_secondary);
         botHistoryButton.setTextSize(16);
         botHistoryButton.setPadding(24, 32, 24, 32);
         LinearLayout.LayoutParams lp1 = new LinearLayout.LayoutParams(
@@ -44,7 +47,10 @@ public class GameHistoryActivity extends Activity {
 
         Button rafikiHistoryButton = new Button(this);
         rafikiHistoryButton.setText("Rafiki Play History");
-        rafikiHistoryButton.setTextColor(Color.WHITE);
+        rafikiHistoryButton.setTextColor(Color.parseColor("#F3EFE6"));
+        rafikiHistoryButton.setAllCaps(false);
+        rafikiHistoryButton.setStateListAnimator(null);
+        rafikiHistoryButton.setBackgroundResource(R.drawable.g_btn_secondary);
         rafikiHistoryButton.setTextSize(16);
         rafikiHistoryButton.setPadding(24, 32, 24, 32);
         rafikiHistoryButton.setLayoutParams(new LinearLayout.LayoutParams(

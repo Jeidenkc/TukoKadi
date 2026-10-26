@@ -16,10 +16,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="♠♥ TUKO KADI ♦♣"
-            android:textColor="#FFD54A"
+            android:textColor="#F3EFE6"
             android:textSize="20sp"
             android:textStyle="bold"
-            android:shadowColor="#FFAA00"
+            android:shadowColor="#66000000"
             android:shadowRadius="12"/>
 
         <TextView
@@ -49,7 +49,7 @@
             android:paddingHorizontal="12dp"
             android:paddingVertical="6dp"
             android:text="⚙"
-            android:textColor="#FFD54A"
+            android:textColor="#F3EFE6"
             android:textSize="18sp"/>
     </LinearLayout>
 

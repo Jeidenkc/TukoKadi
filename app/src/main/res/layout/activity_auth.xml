@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="K&#9824;"
-        android:textColor="#1FD4AF37"
+        android:textColor="#12FFFFFF"
         android:textSize="260sp"
         android:textStyle="bold"
         android:rotation="-18"
@@ -21,7 +21,7 @@
         android:layout_marginTop="60dp"
         android:layout_marginEnd="-40dp"
         android:text="K&#9829;"
-        android:textColor="#14D4AF37"
+        android:textColor="#12FFFFFF"
         android:textSize="140sp"
         android:textStyle="bold"
         android:rotation="14"
@@ -34,7 +34,7 @@
         android:layout_marginBottom="80dp"
         android:layout_marginStart="-30dp"
         android:text="K&#9830;"
-        android:textColor="#14D4AF37"
+        android:textColor="#12FFFFFF"
         android:textSize="140sp"
         android:textStyle="bold"
         android:rotation="-10"
@@ -64,7 +64,7 @@
         android:contentDescription="TukoKadi logo" />
 
     <TextView
-        android:textColor="#FF8C00"
+        android:textColor="#F3EFE6"
         android:fontFamily="serif"
         android:textStyle="bold"
             android:layout_width="wrap_content"
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Login"
-                android:textColor="#F4D160"
+                android:textColor="#F3EFE6"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -99,8 +99,8 @@
                 android:inputType="textEmailAddress"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
-                android:textColorHint="#8AA88E"
-                android:textColor="#F4E9C9"
+                android:textColorHint="#9DB8AB"
+                android:textColor="#F3EFE6"
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="8dp"/>
 
@@ -113,8 +113,8 @@
                 android:inputType="textPassword"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
-                android:textColorHint="#8AA88E"
-                android:textColor="#F4E9C9"
+                android:textColorHint="#9DB8AB"
+                android:textColor="#F3EFE6"
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="16dp"/>
 
@@ -128,7 +128,7 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:letterSpacing="0.05"
-                android:minHeight="46dp"
+                android:minHeight="52dp"
                 android:layout_marginTop="6dp"
                 android:background="@drawable/btn_login_gold"/>
 
@@ -138,7 +138,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Forgot Password?"
-                android:textColor="#D4AF37"
+                android:textColor="#34D399"
                 android:background="@android:color/transparent"
                 android:layout_marginTop="6dp"/>
 
@@ -147,19 +147,20 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#D4AF37"
+            android:background="#2F6450"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="8dp"/>
 
         <Button
         android:text="New here? Register"
-        android:textColor="#0B3D20"
+        android:textColor="#F3EFE6"
         android:textStyle="bold"
         android:fontFamily="sans-serif-medium"
             android:id="@+id/showRegisterButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="#D4AF37"/>
+            android:minHeight="52dp"
+            android:background="@drawable/g_btn_secondary"/>
 
         <LinearLayout
             android:id="@+id/registerSection"
@@ -174,7 +175,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Register"
-                android:textColor="#F4D160"
+                android:textColor="#F3EFE6"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="16dp"/>
@@ -187,8 +188,8 @@
                 android:hint="Full Name"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
-                android:textColorHint="#8AA88E"
-                android:textColor="#F4E9C9"
+                android:textColorHint="#9DB8AB"
+                android:textColor="#F3EFE6"
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="8dp"/>
 
@@ -201,8 +202,8 @@
                 android:inputType="textEmailAddress"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
-                android:textColorHint="#8AA88E"
-                android:textColor="#F4E9C9"
+                android:textColorHint="#9DB8AB"
+                android:textColor="#F3EFE6"
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="8dp"/>
 
@@ -215,8 +216,8 @@
                 android:inputType="textPassword"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
-                android:textColorHint="#8AA88E"
-                android:textColor="#F4E9C9"
+                android:textColorHint="#9DB8AB"
+                android:textColor="#F3EFE6"
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="8dp"/>
 
@@ -229,8 +230,8 @@
                 android:inputType="textPassword"
                 android:background="@drawable/input_field_bg"
                 android:padding="16dp"
-                android:textColorHint="#8AA88E"
-                android:textColor="#F4E9C9"
+                android:textColorHint="#9DB8AB"
+                android:textColor="#F3EFE6"
                 android:textCursorDrawable="@null"
                 android:layout_marginBottom="16dp"/>
 
@@ -244,7 +245,7 @@
                 android:textStyle="bold"
                 android:textSize="15sp"
                 android:letterSpacing="0.05"
-                android:minHeight="46dp"
+                android:minHeight="52dp"
                 android:background="@drawable/btn_login_gold"/>
 
         </LinearLayout>
@@ -255,7 +256,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Contact Support"
-            android:textColor="#D4AF37"
+            android:textColor="#34D399"
             android:textSize="14sp"
             android:layout_marginTop="18dp"
             android:layout_marginBottom="12dp"

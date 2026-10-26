@@ -29,7 +29,7 @@ public class BotLevelActivity extends Activity {
 
         TextView title = new TextView(this);
         title.setText("Choose Level");
-        title.setTextColor(Color.parseColor("#FF8C00"));
+        title.setTextColor(Color.parseColor("#F3EFE6"));
         title.setTypeface(Typeface.SERIF, Typeface.BOLD);
         title.setTextSize(28);
         title.setGravity(Gravity.CENTER);
@@ -51,7 +51,7 @@ public class BotLevelActivity extends Activity {
 
             TextView label = new TextView(this);
             label.setText(names[i]);
-            label.setTextColor(Color.parseColor("#FF8C00"));
+            label.setTextColor(Color.parseColor("#F3EFE6"));
             label.setTypeface(Typeface.SERIF, Typeface.BOLD);
             label.setTextSize(20);
             label.setPadding((int) (16 * d), (int) (6 * d), (int) (16 * d), (int) (6 * d));

@@ -2,7 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0B3D20"
+    android:background="@drawable/g_bg_felt"
     android:fillViewport="true">
 
     <LinearLayout
@@ -18,10 +18,10 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="⚙ SETTINGS"
-            android:textColor="#FFD54A"
+            android:textColor="#F3EFE6"
             android:textSize="26sp"
             android:textStyle="bold"
-            android:shadowColor="#FFAA00"
+            android:shadowColor="#66000000"
             android:shadowRadius="12"/>
 
         <Switch
@@ -68,7 +68,7 @@
                 android:checked="true"
                 android:text="100 NETCOINS  ·  10 sh"
                 android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
+                android:buttonTint="#34D399"/>
 
             <RadioButton
                 android:id="@+id/stake200"
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="200 NETCOINS  ·  20 sh"
                 android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
+                android:buttonTint="#34D399"/>
 
             <RadioButton
                 android:id="@+id/stake500"
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:text="500 NETCOINS  ·  50 sh"
                 android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
+                android:buttonTint="#34D399"/>
 
             <RadioButton
                 android:id="@+id/stake1000"
@@ -92,7 +92,7 @@
                 android:layout_height="wrap_content"
                 android:text="1000 NETCOINS  ·  100 sh"
                 android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
+                android:buttonTint="#34D399"/>
         </RadioGroup>
 
         <TextView

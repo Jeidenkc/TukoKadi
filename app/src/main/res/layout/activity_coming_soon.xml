@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="#0B3D20"
+    android:background="@drawable/g_bg_felt"
     android:padding="24dp">
 
     <TextView
@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Coming Soon"
-        android:textColor="#D4AF37"
+        android:textColor="#34D399"
         android:textSize="26sp"
         android:textStyle="bold"
         android:layout_marginBottom="16dp"/>
@@ -34,6 +34,7 @@
         android:textColor="#0B3D20"
         android:textStyle="bold"
         android:padding="14dp"
-        android:backgroundTint="#D4AF37"/>
+        android:minHeight="52dp"
+            android:background="@drawable/g_btn_secondary"/>
 
 </LinearLayout>

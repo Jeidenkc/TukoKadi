@@ -1,141 +1,228 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/g_bg_felt">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="20dp"
-    android:background="@drawable/screen_bg">
+    android:padding="20dp">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="♠♥ RAFIKI PLAY ♦♣"
-        android:textColor="#FFD54A"
+        android:text="RAFIKI PLAY"
+        android:textColor="@color/g_ink"
         android:textSize="26sp"
         android:textStyle="bold"
-        android:shadowColor="#FFAA00"
-        android:shadowRadius="12"
-        android:layout_marginBottom="20dp"/>
+        android:letterSpacing="0.12"/>
 
-    <!-- MENU: create or join -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="♠  ♥  ♦  ♣"
+        android:textColor="@color/g_dim"
+        android:textSize="14sp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="18dp"/>
+
+    <!-- MENU -->
     <LinearLayout
         android:id="@+id/menuPanel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/nameInput"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/chip_bg"
-            android:hint="Your name"
-            android:maxLength="20"
-            android:inputType="textPersonName"
-            android:padding="14dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#AAFFFFFF"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:background="@drawable/g_bg_card">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Room size"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"/>
-
-        <RadioGroup
-            android:id="@+id/sizeGroup"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/size2"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:text="2 players"
-                android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
+                android:text="PLAYER"
+                android:textColor="@color/g_dim"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
 
-            <RadioButton
-                android:id="@+id/size3"
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="wrap_content"
-                android:text="3 players"
-                android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
+            <EditText
+                android:id="@+id/nameInput"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_marginTop="6dp"
+                android:background="@drawable/g_bg_field"
+                android:hint="Your name"
+                android:maxLength="20"
+                android:inputType="textPersonName"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
+                android:textColor="@color/g_ink"
+                android:textColorHint="@color/g_dim"
+                android:textSize="16sp"/>
 
-            <RadioButton
-                android:id="@+id/size4"
-                android:layout_width="0dp"
-                android:layout_weight="1"
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4 players"
-                android:textColor="#FFFFFF"
-                android:buttonTint="#FFD54A"/>
-        </RadioGroup>
+                android:layout_marginTop="16dp"
+                android:text="ROOM SIZE"
+                android:textColor="@color/g_dim"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
+
+            <RadioGroup
+                android:id="@+id/sizeGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/size2"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:checked="true"
+                    android:text="2 players"
+                    android:textSize="14sp"
+                    android:textColor="@color/g_seg_text"
+                    android:background="@drawable/g_bg_seg"/>
+
+                <RadioButton
+                    android:id="@+id/size3"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="8dp"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="3 players"
+                    android:textSize="14sp"
+                    android:textColor="@color/g_seg_text"
+                    android:background="@drawable/g_bg_seg"/>
+
+                <RadioButton
+                    android:id="@+id/size4"
+                    android:layout_width="0dp"
+                    android:layout_height="46dp"
+                    android:layout_weight="1"
+                    android:button="@null"
+                    android:gravity="center"
+                    android:text="4 players"
+                    android:textSize="14sp"
+                    android:textColor="@color/g_seg_text"
+                    android:background="@drawable/g_bg_seg"/>
+            </RadioGroup>
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnCreate"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/btn_gold"
-            android:text="CREATE ROOM"
-            android:textColor="#0B3D1E"
-            android:textStyle="bold"/>
+            android:layout_height="54dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/g_btn_primary"
+            android:text="Create room"
+            android:textAllCaps="false"
+            android:textColor="@color/g_on_emerald"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:stateListAnimator="@null"/>
 
-        <Button
-            android:id="@+id/btnQuickMatch"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/btn_gold"
-            android:text="QUICK MATCH"
-            android:textColor="#0B3D1E"
-            android:textStyle="bold"/>
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnQuickMatch"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/g_btn_secondary"
+                android:text="Quick match"
+                android:textAllCaps="false"
+                android:textColor="@color/g_ink"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+
+            <Button
+                android:id="@+id/btnFriends"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/g_btn_secondary"
+                android:text="Friends"
+                android:textAllCaps="false"
+                android:textColor="@color/g_ink"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center"
-            android:text="— or join a friend —"
-            android:textColor="#CCFFFFFF"/>
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="8dp"
+            android:text="HAVE A CODE?"
+            android:textColor="@color/g_dim"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            android:letterSpacing="0.1"/>
 
-        <EditText
-            android:id="@+id/codeInput"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/chip_bg"
-            android:gravity="center"
-            android:hint="ROOM CODE"
-            android:maxLength="4"
-            android:inputType="textCapCharacters"
-            android:padding="14dp"
-            android:textColor="#FFFFFF"
-            android:textColorHint="#AAFFFFFF"
-            android:textSize="20sp"
-            android:textStyle="bold"/>
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btnJoin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:background="@drawable/btn_gold"
-            android:text="JOIN ROOM"
-            android:textColor="#0B3D1E"
-            android:textStyle="bold"/>
+            <EditText
+                android:id="@+id/codeInput"
+                android:layout_width="0dp"
+                android:layout_height="52dp"
+                android:layout_weight="1"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/g_bg_field"
+                android:gravity="center"
+                android:hint="CODE"
+                android:maxLength="4"
+                android:inputType="textCapCharacters"
+                android:textColor="@color/g_ink"
+                android:textColorHint="@color/g_dim"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.3"/>
+
+            <Button
+                android:id="@+id/btnJoin"
+                android:layout_width="120dp"
+                android:layout_height="52dp"
+                android:background="@drawable/g_btn_secondary"
+                android:text="Join"
+                android:textAllCaps="false"
+                android:textColor="@color/g_emerald"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:stateListAnimator="@null"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <!-- LOBBY: waiting for friends -->
+    <!-- LOBBY -->
     <LinearLayout
         android:id="@+id/lobbyPanel"
         android:layout_width="match_parent"
@@ -144,65 +231,80 @@
         android:gravity="center_horizontal"
         android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="ROOM CODE"
-            android:textColor="#CCFFFFFF"/>
-
-        <TextView
-            android:id="@+id/roomCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:letterSpacing="0.2"
-            android:text="----"
-            android:textColor="#FFD54A"
-            android:textSize="48sp"
-            android:textStyle="bold"
-            android:shadowColor="#FFAA00"
-            android:shadowRadius="14"/>
-
-        <TextView
-            android:id="@+id/statusText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:textColor="#FFFFFF"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:id="@+id/playersText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/chip_bg"
-            android:minWidth="220dp"
-            android:padding="16dp"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
-
-        <Button
-        android:id="@+id/btnAddBot"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Add Bot"
-        android:textColor="#D4AF37"
-        android:textStyle="bold"
-        android:background="@android:color/transparent"
-        android:layout_marginBottom="12dp" />
-
-    <Button
-            android:id="@+id/btnLeave"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:background="@drawable/btn_gold"
-            android:text="LEAVE ROOM"
-            android:textColor="#0B3D1E"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="20dp"
+            android:background="@drawable/g_bg_card">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ROOM CODE"
+                android:textColor="@color/g_dim"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:letterSpacing="0.1"/>
+
+            <TextView
+                android:id="@+id/roomCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.2"
+                android:text="----"
+                android:textColor="@color/g_gold"
+                android:textSize="44sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/statusText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="@color/g_ink"
+                android:textSize="15sp"/>
+
+            <TextView
+                android:id="@+id/playersText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/g_bg_field"
+                android:padding="16dp"
+                android:textColor="@color/g_ink"
+                android:textSize="16sp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddBot"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/g_btn_secondary"
+            android:text="Add bot"
+            android:textAllCaps="false"
+            android:textColor="@color/g_ink"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:stateListAnimator="@null"/>
+
+        <Button
+            android:id="@+id/btnLeave"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/g_btn_danger"
+            android:text="Leave room"
+            android:textAllCaps="false"
+            android:textColor="@color/g_danger"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:stateListAnimator="@null"/>
     </LinearLayout>
 
-    <!-- SEARCHING: quick match in progress -->
+    <!-- SEARCHING -->
     <LinearLayout
         android:id="@+id/searchingPanel"
         android:layout_width="match_parent"
@@ -211,24 +313,34 @@
         android:gravity="center_horizontal"
         android:visibility="gone">
 
+        <ProgressBar
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginTop="40dp"
+            android:indeterminateTint="@color/g_emerald"/>
+
         <TextView
             android:id="@+id/searchingText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="Searching for a match…"
-            android:textColor="#FFFFFF"
-            android:textSize="18sp"/>
+            android:textColor="@color/g_ink"
+            android:textSize="17sp"/>
 
         <Button
             android:id="@+id/btnCancelSearch"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_marginTop="24dp"
-            android:background="@drawable/btn_gold"
-            android:text="CANCEL"
-            android:textColor="#0B3D1E"
-            android:textStyle="bold"/>
+            android:background="@drawable/g_btn_danger"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="@color/g_danger"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:stateListAnimator="@null"/>
     </LinearLayout>
 </LinearLayout>
+</ScrollView>
