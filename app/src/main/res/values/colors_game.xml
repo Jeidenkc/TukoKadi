@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="g_bg_top">#0E2A21</color>
+    <color name="g_bg_bottom">#071812</color>
+    <color name="g_surface">#153528</color>
+    <color name="g_surface_alt">#1C4434</color>
+    <color name="g_stroke">#2F6450</color>
+    <color name="g_ink">#F3EFE6</color>
+    <color name="g_dim">#9DB8AB</color>
+    <color name="g_emerald">#34D399</color>
+    <color name="g_emerald_dark">#22B07D</color>
+    <color name="g_on_emerald">#052E1F</color>
+    <color name="g_danger">#F0555A</color>
+    <color name="g_gold">#F2C14E</color>
+</resources>
